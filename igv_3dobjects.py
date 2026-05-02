@@ -705,3 +705,53 @@ def bateria():
     glTranslatef(0, 0, 1)
     solid_ortho(2,1,1,light_grey_range)
     glPopMatrix()
+
+def punto():
+    glPushMatrix()
+    #glTranslatef(6,4,6)
+    solid_ortho(2, 1, 2, color_zapato)
+    glTranslatef(0,0,1)
+    solid_ortho(2, 1, 2, color_zapato)
+    glPopMatrix()
+
+def barra():
+    glPushMatrix()
+    #glTranslatef(6,4,6)
+    solid_ortho(2, 1, 12, color_zapato)
+    #glTranslatef(0,0,1)
+    #solid_ortho(2, 1, 2, color_zapato)
+    glPopMatrix()
+
+def ficha():
+
+    # Se usa solid_ortho porque no hay manera de construirlo de forma hueca
+    # Cuerpo de la ficha
+
+    # Base de la ficha
+    glPushMatrix()
+    solid_ortho(30, 2, 14, color_zapato)
+    glTranslatef(0,2,0)
+    solid_ortho(30, 2, 14, light_grey_range)
+    glPopMatrix()
+
+    # Elementos de la ficha
+    # Barra central en posición x=14 con z=2 e y=1
+    # Punto simple izquierda en x=6 con z=2 e y=1
+    # Punto simple izquierda en x=7 con z=2 e y=1
+    #glPushMatrix()
+    glTranslatef(6,4,6)
+    punto()
+
+    glTranslatef(8,0,-5)
+    barra()
+
+    glTranslatef(4,0, 1)
+    punto()
+    glTranslatef(7,0, 8)
+    punto()
+    '''
+    solid_ortho(2, 1, 2, color_zapato)
+    glTranslatef(0,0,1)
+    solid_ortho(2, 1, 2, color_zapato)
+    glPopMatrix()
+    '''
