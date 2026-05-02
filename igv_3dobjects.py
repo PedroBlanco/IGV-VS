@@ -795,6 +795,22 @@ def carril_bici():
     solid_ortho(200, 1, 15, light_green_range)
     glPopMatrix()
 
+def carretera():
+    glPushMatrix()
+    solid_ortho(200, 1, 40, dark_grey_range)
+        # Línea discontinua central (en z ~ mitad de 40)
+    dash_len = 6
+    gap = 6
+    z_line = 19   # centro aprox (0..39)
+    x = 0
+    while x < 200:
+        glPushMatrix()
+        glTranslatef(x, 1, z_line)             # y=1 para quedar encima del asfalto
+        solid_ortho(dash_len, 1, 2, [grey_1])  # bloque blanco
+        glPopMatrix()
+        x += dash_len + gap
+    glPopMatrix()
+
 
 
 def farola():

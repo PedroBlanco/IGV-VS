@@ -244,8 +244,11 @@ def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, False)  # Dibujo de los ejes de coordenadas
     glTranslatef(-100,0,70)
     igv_3dobjects.carril_bici()
-    glTranslatef(170,0,-10)
-    igv_3dobjects.draw_farola()
+    glTranslatef(0,0,-150)
+    igv_3dobjects.carretera()
+    glTranslatef(160,0,145)
+    igv_3dobjects.farola()
+
 
 
 
