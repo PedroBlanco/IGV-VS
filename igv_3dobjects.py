@@ -81,6 +81,40 @@ dark_grey_range = [grey_3, grey_4, grey_5]
 
 black_5 = [27/255, 38/255, 49/255] 
 
+color_piel_claro = [220/255, 190/255, 170/255]
+color_piel_oscuro = [215/255, 185/255, 165/255]
+color_piel = [color_piel_claro, color_piel_claro, color_piel_claro, color_piel_claro, color_piel_oscuro]
+
+camisa_azul_claro = [15/255, 100/255, 125/255]
+camisa_azul_oscuro = [10/255, 95/255, 120/255]
+color_camisa = [camisa_azul_claro, camisa_azul_claro, camisa_azul_oscuro]
+
+color_pantalon_claro = [55/255, 40/255, 25/255]
+color_pantalon_oscuro = [50/255, 35/255, 20/255]
+color_pantalon = [color_pantalon_claro, color_pantalon_claro, color_pantalon_oscuro]
+
+color_zapato_claro = [110/255, 80/255, 70/255]
+color_zapato_oscuro = [105/255, 75/255, 65/255]
+color_zapato = [color_zapato_claro, color_zapato_claro, color_zapato_oscuro]
+
+color_sombrero_claro = [255/255, 205/255, 5/255]
+color_sombrero_oscuro = [250/255, 200/255, 0/255]
+color_sombrero = [color_sombrero_claro, color_sombrero_oscuro]
+# Definir colores para el creeper
+color_creeper_verde_claro = [102/255, 204/255, 102/255]  # Verde claro creeper
+color_creeper_verde_oscuro = [76/255, 153/255, 76/255]   # Verde oscuro creeper
+color_creeper_negro = [0, 0, 0]                          # Negro para ojos y boca
+color_creeper = [color_creeper_verde_claro, color_creeper_verde_claro, color_creeper_verde_claro, 
+                 color_creeper_verde_oscuro, color_creeper_verde_oscuro]
+
+# Definición de colores para el Golem
+color_golem_hierro_claro = [200/255, 200/255, 200/255]  # Hierro claro
+color_golem_hierro_medio = [170/255, 170/255, 170/255]  # Hierro medio
+color_golem_hierro_oscuro = [140/255, 140/255, 140/255]  # Hierro oscuro
+color_golem_hierro = [color_golem_hierro_claro, color_golem_hierro_medio, color_golem_hierro_oscuro]
+
+color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
+
 
 
 def solid_face_xz(x_size, z_size, colors):
