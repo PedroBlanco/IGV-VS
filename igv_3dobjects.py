@@ -789,3 +789,82 @@ def ficha():
     solid_ortho(2, 1, 2, color_zapato)
     glPopMatrix()
     '''
+
+def carril_bici():
+    glPushMatrix()
+    solid_ortho(200, 1, 15, light_green_range)
+    glPopMatrix()
+
+
+
+def farola():
+    """
+    Farola construida con solid_ortho, empty_ortho y solid_face_xz,
+ 
+      Parte      Funcion         Medidas (x, y, z)
+      Pedestal   empty_ortho     6 x 4 x 6
+      Reductor   solid_ortho     4 x 2 x 4   (escalon intermedio hacia el fuste)
+      Fuste      solid_ortho     2 x 20 x 2
+      Brazo      solid_face_xz   10 x 2      (horizontal en +X sobre la cima del fuste)
+      Cuello     solid_ortho     2 x 4 x 2   (baja del extremo del brazo)
+      Linterna   empty_ortho     6 x 6 x 4   (cuerpo luminoso)
+    """
+ 
+    # Medidas de cada parte
+    ped_w = 6;  ped_h = 4;  ped_d = 6     # pedestal
+    red_w = 4;  red_h = 2;  red_d = 4     # reductor
+    fus_w = 2;  fus_h = 20; fus_d = 2     # fuste
+    bra_l = 10; bra_d = 2                 # brazo (longitud en X, profundidad en Z)
+    cue_w = 2;  cue_h = 4;  cue_d = 2     # cuello
+    lin_w = 6;  lin_h = 6;  lin_d = 4     # linterna
+ 
+    def pedestal():
+        glPushMatrix()
+        empty_ortho(ped_w, ped_h, ped_d, light_grey_range)
+        glPopMatrix()
+ 
+    def reductor():
+        # Sube al techo del pedestal y centra en XZ el escalon
+        glPushMatrix()
+        glTranslatef(1, ped_h, 1)
+        solid_ortho(red_w, red_h, red_d, light_grey_range)
+        glPopMatrix()
+ 
+    def fuste():
+        # Sube al techo del reductor y centra en XZ la columna
+        glPushMatrix()
+        glTranslatef(2, ped_h + red_h, 2)
+        solid_ortho(fus_w, fus_h, fus_d, light_grey_range)
+        glPopMatrix()
+ 
+    def brazo():
+        # Barra horizontal que sale en +X desde la cima del fuste
+        glPushMatrix()
+        glTranslatef(2, ped_h + red_h + fus_h, 2)
+        solid_face_xz(bra_l, bra_d, light_grey_range)
+        glPopMatrix()
+ 
+    def cuello():
+        # Baja verticalmente desde el extremo del brazo
+        glPushMatrix()
+        glTranslatef(2 + bra_l - cue_w,
+                     ped_h + red_h + fus_h - cue_h,
+                     2)
+        solid_ortho(cue_w, cue_h, cue_d, light_grey_range)
+        glPopMatrix()
+ 
+    def linterna():
+        # Caja luminosa colgada del cuello
+        glPushMatrix()
+        glTranslatef(2 + bra_l - cue_w - 1,
+                     ped_h + red_h + fus_h - cue_h - lin_h,
+                     2 - 1)
+        empty_ortho(lin_w, lin_h, lin_d, light_yellow_range)
+        glPopMatrix()
+ 
+    pedestal()
+    reductor()
+    fuste()
+    brazo()
+    cuello()
+    linterna()

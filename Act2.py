@@ -242,11 +242,10 @@ def display():
 
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, False)  # Dibujo de los ejes de coordenadas
-    # igv_3dobjects.tree(dark_brown_range, dark_green_range)
-    # glTranslatef(30,0,0)
-    # igv_3dobjects.tree(brown_range, dark_red_range) 
-    # igv_3dobjects.bench()
-    igv_3dobjects.bateria()
+    glTranslatef(-100,0,70)
+    igv_3dobjects.carril_bici()
+    glTranslatef(170,0,-10)
+    igv_3dobjects.draw_farola()
 
 
 
