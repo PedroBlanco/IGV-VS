@@ -16,8 +16,6 @@ xMax = yMax = zMax = axes_length
 
 
 
-
-
 # Definición de colores
 grey = [128/255, 128/255, 128/255]
 blue = [0, 204/255, 1]
@@ -177,7 +175,6 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
 
 
 
-
 def display():
  
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Borrar buffers
@@ -212,10 +209,12 @@ def display():
 
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, False)  # Dibujo de los ejes de coordenadas
-    igv_3dobjects.tree(dark_brown_range, dark_green_range)
-    glTranslatef(30,0,0)
+    # igv_3dobjects.tree(dark_brown_range, dark_green_range)
+    # glTranslatef(30,0,0)
     # igv_3dobjects.tree(brown_range, dark_red_range) 
-    igv_3dobjects.bench()
+    # igv_3dobjects.bench()
+    igv_3dobjects.bateria()
+
 
 
 

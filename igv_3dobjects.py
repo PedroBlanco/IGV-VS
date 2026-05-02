@@ -480,3 +480,228 @@ def pyramid(size, colors):
     
     glPopMatrix()
 
+def regalo():
+    # Cuerpo regalo
+    
+    glPushMatrix()
+    #glTranslatef(0,10,-2)
+    empty_ortho(15, 15, 15, light_grey_range) # Caja color gris 
+    glPopMatrix()
+    glPushMatrix()
+    glTranslatef(6,0,15)
+    solid_face_xy(3, 16, dark_red_range) #lazo rojo frente
+    glPopMatrix()
+    glPushMatrix()
+    glTranslatef(6,15,0)
+    solid_face_xz(3, 16, dark_red_range) #lazo rojo arriba atrás al frente
+    glPopMatrix()
+    glPushMatrix()
+    glTranslatef(6,0,-1)
+    solid_face_xy(3, 16, dark_red_range) #lazo rojo trasera
+    glPopMatrix()
+    glPushMatrix()
+    glTranslatef(0,15,6)
+    solid_face_xz(16, 3, dark_red_range) #lazo rojo arriba izquierda a derecha
+    glPopMatrix()
+    
+    glPushMatrix()
+    glTranslatef(-1,0,6)
+    solid_face_yz(16, 3, dark_red_range) #lazo rojo lado izquierdo
+    glPopMatrix()
+    
+    glPushMatrix()
+    glTranslatef(15,0,6)
+    solid_face_yz(16, 3, dark_red_range) #lazo rojo lado
+    glPopMatrix()
+
+    def tnt():
+        # Cuerpo TNT
+        glPushMatrix()
+        
+        # Se crea la caja de dinamita con piezas de empthy_ortho()
+        empty_ortho(16, 6, 16, dark_red_range) # TNT color rojo inferior
+        glTranslatef(0,6,0)
+        empty_ortho(16, 6, 16, light_grey_range) # TNT color gris 
+        glTranslatef(0,6,0)
+        empty_ortho(16, 6, 16, dark_red_range) # TNT color rojo inferior
+          
+        glPopMatrix()
+        letras()
+    
+def letras():
+
+    # Primera letra T frente
+    
+    glPushMatrix()
+    glTranslatef(2,10,16)
+    solid_ortho(3,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(3,7,16)
+    solid_ortho(1,3,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    # Letra N frente
+    
+    glPushMatrix()
+    glTranslatef(6,7,16)
+    solid_ortho(1,4,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(7,9,16)
+    solid_ortho(1,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(8,8,16)
+    solid_ortho(1,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+    
+    glPushMatrix()
+    glTranslatef(9,7,16)
+    solid_ortho(1,4,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    # Segunta letra T frente
+    
+    glPushMatrix()
+    glTranslatef(11,10,16)
+    solid_ortho(3,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(12,7,16)
+    solid_ortho(1,3,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    # Primera letra T trasera
+    
+    glPushMatrix()
+    glTranslatef(2,10,-1)
+    solid_ortho(3,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(3,7,-1)
+    solid_ortho(1,3,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    # Letra N trasera
+    
+    glPushMatrix()
+    glTranslatef(6,7,-1)
+    solid_ortho(1,4,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(7,8,-1)
+    solid_ortho(1,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(8,9,-1)
+    solid_ortho(1,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+    
+    glPushMatrix()
+    glTranslatef(9,7,-1)
+    solid_ortho(1,4,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    # Segunta letra T trasera
+    
+    glPushMatrix()
+    glTranslatef(11,10,-1)
+    solid_ortho(3,1,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(12,7,-1)
+    solid_ortho(1,3,1,[black_5,black_5,black_5,black_5,black_5])
+    glPopMatrix()
+
+    def ventana():
+        # Ventana
+        glPushMatrix()
+        solid_ortho(3, 3, 1, [blue_2, blue_2, blue_2, blue_2, blue_2])
+        glPopMatrix()
+
+def tejado(x_size, z_size, colores):
+
+    #glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+    # pintamos una piramide con la funcion solid_face_xz()
+    x_size += 1
+    z_size += 1
+    for z in range(z_size, 1, -2):
+        solid_face_xz(x_size, z_size, colores)
+        x_size = x_size - 4
+        z_size = z_size - 4
+        glTranslatef(2, 1, 2)
+    
+    glPopMatrix()
+
+def casa():
+    # cuerpo del golem 
+    glPushMatrix()
+    empty_ortho(11, 11, 11, light_grey_range)
+    glPopMatrix()
+
+def suelo():
+    # Base inferior, suelo verde (cesped) 
+    glPushMatrix()
+    # con color_creeper para ver su ubicación diferenciada
+    solid_ortho(100, 1, 25, light_grey_range)
+    glPopMatrix()
+
+def bateria():
+    # Dibujamos la batería
+    
+    #Bloque inferior
+    
+    glPushMatrix()
+    empty_ortho(20, 12, 12, dark_brown_range)  # Cuerpo alto y delgado
+    #glPopMatrix()
+    glTranslatef(0, 12, 0)
+    #Bloque superior
+    
+    #glPushMatrix()
+    empty_ortho(20, 5, 12, light_grey_range)  # Cuerpo alto y delgado
+    glPopMatrix()
+
+    # Pintamos los bornes y sígnos
+    #glTranslatef(4, 14, 12)
+    
+    #Signo +
+    glPushMatrix()
+    glTranslatef(4, 14, 12)
+    solid_ortho(3,1,1,light_grey_range)
+    glTranslatef(1, -1, 0)
+    solid_ortho(1,3,1,light_grey_range)
+    glPopMatrix()
+
+    #Signo -
+    glPushMatrix()
+    glTranslatef(13, 14, 12)
+    solid_ortho(3,1,1,light_grey_range)
+    glPopMatrix()
+
+    #Bornes superiores
+    # Borne izquierdo
+    glPushMatrix()
+    glTranslatef(6, 17, 6)
+    solid_ortho(2,1,1,light_grey_range)
+    glTranslatef(0, 0, 1)
+    solid_ortho(2,1,1,light_grey_range)
+    glPopMatrix()
+
+    # Borne izquierdo
+    glPushMatrix()
+    glTranslatef(12, 17, 6)
+    solid_ortho(2,1,1,light_grey_range)
+    glTranslatef(0, 0, 1)
+    solid_ortho(2,1,1,light_grey_range)
+    glPopMatrix()
