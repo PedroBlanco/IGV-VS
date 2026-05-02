@@ -2,16 +2,10 @@
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
-from math import sqrt
 from math import cos
 from math import sin
 from math import tan
 from math import pi
-import random
-from random import randint
-from random import choice
-
-import numpy as np
 
 import igv_utils    # MÃ³dulo con funciones definidas para la asignatura
 import igv_3dobjects
@@ -21,16 +15,7 @@ xMin = yMin = zMin = - axes_length
 xMax = yMax = zMax = axes_length
 
 
-# -----------------------------------------------------------
-# PARÁMETROS COMUNES DEL VOLUMEN DE RECORTE
-# -----------------------------------------------------------
-# X_MIN, X_MAX = -14, 14
-# Y_MIN, Y_MAX = -3, 14
-# Z_NEAR, Z_FAR = -20, 20
 
-# X_MIN, X_MAX = -100, 100
-# Y_MIN, Y_MAX = -100, 100
-# Z_NEAR, Z_FAR = -20, 20
 
 
 # Definición de colores
@@ -191,18 +176,7 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
 
 
 
-def display_old():
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Borrar buffers
-    win_w = glutGet(GLUT_WINDOW_WIDTH)
-    win_h = glutGet(GLUT_WINDOW_HEIGHT)
-
-    # viewport_gabinete(win_w, win_h)
-    # viewport_ortogonal_posterior(win_w, win_h)
-    viewport_ortogonal_lateral_der(win_w, win_h)
-    # viewport_perspectiva_simetrica(win_w, win_h)
- 
-    glFlush()
 
 def display():
  
