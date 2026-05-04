@@ -884,3 +884,70 @@ def farola():
     brazo()
     cuello()
     linterna()
+
+
+def coche():
+    #carroceria del coche
+    glPushMatrix()
+    solid_ortho(20, 10, 5, dark_blue_range)
+    glPopMatrix()
+    # --- Ruedas ---
+    # Tamaño de la rueda
+    rueda_x = 3
+    rueda_y = 3
+    rueda_z = 2
+
+    # Posiciones
+    posiciones_ruedas = [
+        (2, 0, 1),   # delantera izquierda
+        (2, 0, 4),   # delantera derecha
+        (18, 0, 1),  # trasera izquierda
+        (18, 0, 4)   # trasera derecha
+    ]
+
+    for (rx, ry, rz) in posiciones_ruedas:
+        glPushMatrix()
+        glTranslatef(rx, ry, rz)
+        solid_ortho(rueda_x, rueda_y, rueda_z, dark_red_range)
+        glPopMatrix()
+
+
+
+     # --- 2 Luces delanteras ---
+    # Tamaño de cada luz
+    luz_x = 2
+    luz_y = 2
+    luz_z = 1
+
+    # Posiciones de las luces (delante del coche)
+    posiciones_luces = [
+        (0, 6, 1),   # luz izquierda
+        (0, 6, 3)    # luz derecha
+    ]
+
+    for (lx, ly, lz) in posiciones_luces:
+        glPushMatrix()
+        glTranslatef(lx, ly, lz)
+        solid_ortho(luz_x, luz_y, luz_z, dark_yellow_range)
+        glPopMatrix()
+
+
+    # --- Luces Traseras (NUEVO) ---
+    # Usamos el mismo tamaño que las delanteras
+    luz_trasera_x = luz_x
+    luz_trasera_y = luz_y
+    luz_trasera_z = luz_z
+
+    # Posiciones: Al final del coche (x=20 es el final, ponemos en 18 para que no se salga)
+    # Mismo nivel de altura (y=6) y separación (z=1 y z=3)
+    posiciones_luces_traseras = [
+        (18, 6, 1),  # trasera izquierda
+        (18, 6, 3)   # trasera derecha
+    ]
+
+    for (lx, ly, lz) in posiciones_luces_traseras:
+        glPushMatrix()
+        glTranslatef(lx, ly, lz)
+        solid_ortho(luz_trasera_x, luz_trasera_y, luz_trasera_z, dark_red_range) 
+        glPopMatrix()
+
