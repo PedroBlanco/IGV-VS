@@ -242,12 +242,25 @@ def display():
 
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
-    glTranslatef(-100,0,70)
+    glPushMatrix()
+    glTranslatef(-100, 0, 70)
     igv_3dobjects.carril_bici()
-    glTranslatef(0,0,-150)
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, 30)
+    igv_3dobjects.acerado()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, -10)
     igv_3dobjects.carretera()
-    glTranslatef(160,0,145)
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(60, 0, 65)
     igv_3dobjects.coche()
+    glPopMatrix()
 
 
 

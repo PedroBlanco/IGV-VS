@@ -795,6 +795,34 @@ def carril_bici():
     solid_ortho(200, 1, 15, light_green_range)
     glPopMatrix()
 
+def acerado():
+    glPushMatrix()
+    # Base principal de la acera
+    solid_ortho(200, 1, 40, light_grey_range)
+
+    # Bordillo junto al carril bici
+    glPushMatrix()
+    glTranslatef(0, 1, 38)
+    solid_ortho(200, 1, 2, dark_grey_range)
+    glPopMatrix()
+
+    # Bordillo junto a la carretera
+    glPushMatrix()
+    glTranslatef(0, 1, 0)
+    solid_ortho(200, 1, 2, dark_grey_range)
+    glPopMatrix()
+
+    # Franja diferenciadora tipo baldosa táctil
+    x = 0
+    while x < 200:
+        glPushMatrix()
+        glTranslatef(x, 1, 3)
+        solid_ortho(6, 1, 2, dark_yellow_range)
+        glPopMatrix()
+        x += 10
+
+    glPopMatrix()
+
 def carretera():
     glPushMatrix()
     solid_ortho(200, 1, 40, dark_grey_range)
