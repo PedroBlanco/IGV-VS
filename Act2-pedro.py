@@ -11,9 +11,6 @@ import igv_utils    # Módulo con funciones definidas para la asignatura
 import igv_3dobjects
 import igv_pedro
 
-# Necesaria para eliminar la ventana al cerrarla
-window_id = None
-
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
 xMin = yMin = zMin = - axes_length
 xMax = yMax = zMax = axes_length
@@ -124,14 +121,12 @@ color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 
 
 def init_gl():
-    global window_id
-
     glutInit()                                     # Inicializa la libre­ría GLUT
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Único frame buffer y modo de color RGB y buffer de prof
     glutInitWindowSize(1800, 800)                   #(height, width)
     glutInitWindowPosition(0, 0)               #(x pos, y pos)
 
-    window_id = glutCreateWindow(b'Actividad Grupal')          # Creación de la ventana (si no se pone b da error)
+    glutCreateWindow(b'Actividad Grupal')          # Creación de la ventana (si no se pone b da error)
     
     glClearColor(1.0, 1.0, 1.0, 1.0);              # Color del buffer
     
@@ -278,8 +273,6 @@ def draw_mundo():
         glPopMatrix()
 
 def main():
-    global window_id
-    
     init_gl()
     glutDisplayFunc(display)
     glutKeyboardFunc(igv_pedro.gestiona_tecla)

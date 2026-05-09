@@ -41,7 +41,7 @@ def cambiar_visibilidad(nombre_objeto):
 def gestiona_tecla(key, x, y):
     match key:
         case b'\x1b'| b'q' | b'Q':  # ESC, q ó Q
-            print("ESC pulsado -> Salir")
+            print(f"Tecla {key} pulsada -> Salir")
             salir()
 
         case b'0':
@@ -72,13 +72,8 @@ def salir():
     try:
         glutLeaveMainLoop()
     except Exception:
-        # Plan B si no estás usando freeglut real
-        try:
-            if window_id is not None:
-                glutDestroyWindow(window_id)
-        finally:
-            import os
-            os._exit(0)
+        import os
+        os._exit(0)
 
 def draw_label_viewport(label, vp_w, vp_h):
     """
