@@ -211,7 +211,8 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
     gluLookAt(x0, y0, z0, xref, yref, zref, vx, vy, vz)
  
     draw_mundo()
-    igv_utils.draw_text_3d(label, xMin + 0.5, yMin + 0.5, 0)
+    #igv_utils.draw_text_3d(label, xMin + 0.5, yMin + 0.5, 0)
+    igv_pedro.draw_label_viewport(label, vp_w, vp_h)
 
 
 
@@ -275,15 +276,6 @@ def draw_mundo():
         glTranslatef(60, 0, 65)
         igv_3dobjects.coche()
         glPopMatrix()
-
-def cambiar_visibilidad(nombre_objeto):
-    if nombre_objeto in objetos_visibles:
-        objetos_visibles[nombre_objeto] = not objetos_visibles[nombre_objeto]
-
-        estado = "visible" if objetos_visibles[nombre_objeto] else "oculto"
-        print(f"{nombre_objeto}: {estado}")
-
-        glutPostRedisplay()
 
 def main():
     global window_id
