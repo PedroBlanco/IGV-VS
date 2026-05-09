@@ -194,7 +194,7 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
         x0=0.0; y0=0.0; z0=0.0;  xref=0.0;  yref=1.0; zref=0.0;  vx=0.0; vy=0.0; vz=1.0
     elif lookAt == "perspectiva":
         # x0=14.0; y0=12.0; z0=14.0;  xref=0.0; yref=3.0; zref=0.0;  vx=0.0; vy=1.0; vz=0.0
-        x0=90.0; y0=60.0; z0=70.0;  xref=0.0; yref=3.0; zref=0.0;  vx=0.0; vy=1.0; vz=0.0
+        x0=90.0; y0=100.0; z0=70.0;  xref=0.0; yref=3.0; zref=0.0;  vx=0.0; vy=1.0; vz=0.0
     else:   # default (z-)
         x0=0.0; y0=0.0; z0=0.0;  xref=0.0;  yref=0.0; zref=-1.0;  vx=0.0; vy=1.0; vz=0.0
  
@@ -241,13 +241,26 @@ def display():
 
 
 def draw_mundo():
-    igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, False)  # Dibujo de los ejes de coordenadas
-    glTranslatef(-100,0,70)
+    igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
+    glPushMatrix()
+    glTranslatef(-100, 0, 70)
     igv_3dobjects.carril_bici()
-    glTranslatef(0,0,-150)
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, 30)
+    igv_3dobjects.acerado()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, -10)
     igv_3dobjects.carretera()
-    glTranslatef(160,0,145)
-    igv_3dobjects.farola()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(60, 0, 65)
+    igv_3dobjects.coche()
+    glPopMatrix()
 
 
 
