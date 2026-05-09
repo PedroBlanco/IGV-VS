@@ -11,6 +11,7 @@ import igv_utils    # Módulo con funciones definidas para la asignatura
 import igv_3dobjects
 import igv_pedro
 
+# Necesaria para eliminar la ventana al cerrarla
 window_id = None
 
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
@@ -248,29 +249,41 @@ def display():
 
 
 def draw_mundo():
-    igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
+    if igv_pedro.visibilidad["ejes"]:
+        igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
 
-    '''
-    glPushMatrix()
-    glTranslatef(-100, 0, 70)
-    igv_3dobjects.carril_bici()
-    glPopMatrix()
+    if igv_pedro.visibilidad["carril_bici"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 70)
+        igv_3dobjects.carril_bici()
+        glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(-100, 0, 30)
-    igv_3dobjects.acerado()
-    glPopMatrix()
+    if igv_pedro.visibilidad["acerado"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 30)
+        igv_3dobjects.acerado()
+        glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(-100, 0, -10)
-    igv_3dobjects.carretera()
-    glPopMatrix()
-    '''
-    glPushMatrix()
-    glTranslatef(60, 0, 65)
-    igv_3dobjects.coche()
-    glPopMatrix()
+    if igv_pedro.visibilidad["carretera"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, -10)
+        igv_3dobjects.carretera()
+        glPopMatrix()
 
+    if igv_pedro.visibilidad["coche"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        igv_3dobjects.coche()
+        glPopMatrix()
+
+def cambiar_visibilidad(nombre_objeto):
+    if nombre_objeto in objetos_visibles:
+        objetos_visibles[nombre_objeto] = not objetos_visibles[nombre_objeto]
+
+        estado = "visible" if objetos_visibles[nombre_objeto] else "oculto"
+        print(f"{nombre_objeto}: {estado}")
+
+        glutPostRedisplay()
 
 def main():
     global window_id
