@@ -979,3 +979,27 @@ def coche():
         solid_ortho(luz_trasera_x, luz_trasera_y, luz_trasera_z, dark_red_range) 
         glPopMatrix()
 
+def pasodecebra():
+    glPushMatrix()    
+    largo_x= 20
+    ancho_z= 2
+    franjas= 10
+    separacion= 2
+    i=0
+   
+    for i in range(franjas):
+        glPushMatrix()
+ 
+        # Desplazar cada franja en Z
+        glTranslatef(0, 0, i * (ancho_z + separacion))
+ 
+        # Dibujar franja blanca
+        solid_ortho(
+            int(largo_x),   # tamaño en X
+            2,              # grosor en Y
+            int(ancho_z),   # tamaño en Z
+            [grey_1]
+           
+        )
+        glPopMatrix()
+    glPopMatrix()

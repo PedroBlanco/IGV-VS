@@ -258,11 +258,14 @@ def draw_mundo():
     glPopMatrix()
 
     glPushMatrix()
+    glTranslatef(20, 0, -8)
+    igv_3dobjects.pasodecebra()
+    glPopMatrix()
+
+    glPushMatrix()
     glTranslatef(60, 0, 65)
     igv_3dobjects.coche()
     glPopMatrix()
-
-
 
 
 

@@ -286,3 +286,5 @@ def draw_text_3d(text, x, y, z):
     glRasterPos3f(x, y, z)
     for char in text:
         glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))  
+
+
