@@ -394,6 +394,19 @@ def empty_pipe_y(x_size, y_size, z_size, colors):
     # Restaurar la matriz MODELVIEW
     glPopMatrix()
 
+def empty_pipe_x(x_size, y_size, z_size, colors):
+    
+    # Comprobar x_size, y_size, z_size
+    if (x_size < 3) or (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_pipe_x")
+        return
+    
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+    glRotatef(-90, 0, 0, 1)
+    empty_pipe_y(y_size, x_size, z_size, colors)
+    glPopMatrix()
+
 
 def tree(color_trunk, color_top):
     
@@ -1029,7 +1042,7 @@ def semaforo():
         # Pedestal superior para rematar la transición al poste
         glPushMatrix()
         glTranslatef(2, base_h, 2)
-        empty_ortho(base_w - 4, 3, base_d - 4, light_grey_range)
+        empty_ortho(base_w - 4, 4, base_d - 4, light_grey_range)
         glPopMatrix()
         glPopMatrix()
 
@@ -1100,9 +1113,9 @@ def semaforo():
 def farolav4():
     # Base 1
     glPushMatrix()
-    empty_pipe_y(9, 12, 9, very_dark_grey)
+    empty_pipe_y(9, 12, 9, dark_grey_range)
     glTranslatef(0, 12, 0)
-    solid_face_xz(9, 9, very_dark_grey)
+    solid_face_xz(9, 9, dark_grey_range)
     glPopMatrix()
  
     # Base 2

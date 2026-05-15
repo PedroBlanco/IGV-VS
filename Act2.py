@@ -81,7 +81,15 @@ light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_3, grey_4, grey_5]
 
 black_5 = [27/255, 38/255, 49/255] 
-
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+                  
 color_piel_claro = [220/255, 190/255, 170/255]
 color_piel_oscuro = [215/255, 185/255, 165/255]
 color_piel = [color_piel_claro, color_piel_claro, color_piel_claro, color_piel_claro, color_piel_oscuro]
