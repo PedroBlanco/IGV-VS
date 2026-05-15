@@ -301,9 +301,9 @@ def draw_text_3d(text, x, y, z):
         
     Args:
         text: cadena de texto
-        x: coordenada x de la pisición de inicio del texto
-        y: coordenada y de la pisición de inicio del texto
-        z: coordenada z de la pisición de inicio del texto
+        x: coordenada x de la posición de inicio del texto
+        y: coordenada y de la posición de inicio del texto
+        z: coordenada z de la posición de inicio del texto
     """
     
     glRasterPos3f(x, y, z)
