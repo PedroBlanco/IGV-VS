@@ -1005,31 +1005,44 @@ def pasodecebra():
     glPopMatrix()
 
 def semaforo():
-    base_w = 20;  base_h = 20;  base_d = 20     # pedestal
-    palo_w= 4; palo_h = 50; palo_d = 4
-
-    red_w = 4;  red_h = 2;  red_d = 4     # reductor
-    fus_w = 2;  fus_h = 20; fus_d = 2     # fuste
-    bra_l = 10; bra_d = 2                 # brazo (longitud en X, profundidad en Z)
-    cue_w = 2;  cue_h = 4;  cue_d = 2     # cuello
-    lin_w = 6;  lin_h = 6;  lin_d = 4     # linterna
+    escala = 0.8
+    base_w = 20
+    base_h = 20
+    base_d = 20
+    palo_w = 4
+    palo_h = 50
+    palo_d = 4
+    pantalla_w = 12
+    pantalla_h = 42
+    pantalla_d = 10
    
     def base():
         glPushMatrix()
-        empty_ortho(base_w, base_h, base_d, light_grey_range)
+        empty_ortho(base_w, base_h, base_d, grey_range)
+
+        # Zócalo inferior más ancho para mayor estabilidad visual
+        glPushMatrix()
+        glTranslatef(-3, -4, -3)
+        empty_ortho(base_w + 6, 4, base_d + 6, dark_grey_range)
+        glPopMatrix()
+
+        # Pedestal superior para rematar la transición al poste
+        glPushMatrix()
+        glTranslatef(2, base_h, 2)
+        empty_ortho(base_w - 4, 3, base_d - 4, light_grey_range)
+        glPopMatrix()
         glPopMatrix()
 
     def palo():
         glPushMatrix()
-        # glTranslatef(8,20,8 )
-        glTranslate(base_w/2-palo_w/2, base_h, base_d/2-palo_d/2 )
-        empty_ortho(4, 50, 4, light_grey_range)
+        glTranslate(base_w / 2 - palo_w / 2, base_h, base_d / 2 - palo_d / 2)
+        empty_ortho(palo_w, palo_h, palo_d, dark_grey_range)
         glPopMatrix()
 
     def pantalla():
-        pantalla_w = 10
-        pantalla_h = 40
-        pantalla_d = 10
+        pantalla_x = base_w / 2 - pantalla_w / 2
+        pantalla_y = base_h + palo_h
+        pantalla_z = base_d / 2 - pantalla_d / 2
 
         def circulo_luz(cx, cy, cz, radio, color):
             glPushMatrix()
@@ -1048,50 +1061,41 @@ def semaforo():
             return [y_inicio + i * (2 * radio + separacion) for i in range(cantidad)]
 
         glPushMatrix()
-        glTranslatef(8,70,8 )
-        empty_ortho(pantalla_w, pantalla_h, pantalla_d, light_grey_range)
+        glTranslatef(pantalla_x, pantalla_y, pantalla_z)
+        empty_ortho(pantalla_w, pantalla_h, pantalla_d, dark_grey_range)
         glPopMatrix()
 
-        def luz_arriba():
+        def dibujar_luz(indice, color_rango):
             glPushMatrix()
-            glTranslatef(8,70,8 )
-            radio = 2
-            separacion = 4
+            glTranslatef(pantalla_x, pantalla_y, pantalla_z)
+            radio = 2.4
+            separacion = 4.5
             y = centros_verticales(radio, separacion, 3, pantalla_h)
             x_centro = pantalla_w / 2
             z_frente = pantalla_d + 0.2
-            circulo_luz(x_centro, y[2], z_frente, radio, choice(dark_green_range))
+            circulo_luz(x_centro, y[indice], z_frente, radio + 0.9, black_5)
+            circulo_luz(x_centro, y[indice], z_frente + 0.01, radio, choice(color_rango))
             glPopMatrix()
 
+        def luz_arriba():
+            dibujar_luz(2, dark_green_range)
 
         def luz_medio():
-            glPushMatrix()
-            glTranslatef(8,70,8 )
-            radio = 2
-            separacion = 4
-            y = centros_verticales(radio, separacion, 3, pantalla_h)
-            x_centro = pantalla_w / 2
-            z_frente = pantalla_d + 0.2
-            circulo_luz(x_centro, y[1], z_frente, radio, choice(dark_yellow_range))
-            glPopMatrix()
+            dibujar_luz(1, dark_yellow_range)
 
         def luz_abajo():
-            glPushMatrix()
-            glTranslatef(8,70,8 )
-            radio = 2
-            separacion = 4
-            y = centros_verticales(radio, separacion, 3, pantalla_h)
-            x_centro = pantalla_w / 2
-            z_frente = pantalla_d + 0.2
-            circulo_luz(x_centro, y[0], z_frente, radio, choice(dark_red_range))
-            glPopMatrix()
+            dibujar_luz(0, dark_red_range)
+
         luz_arriba()
         luz_medio()
         luz_abajo()
 
+    glPushMatrix()
+    glScalef(escala, escala, escala)
     base()
     palo()
     pantalla()
+    glPopMatrix()
 
 
 
