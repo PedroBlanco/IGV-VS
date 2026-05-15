@@ -1029,7 +1029,7 @@ def semaforo():
         # Pedestal superior para rematar la transición al poste
         glPushMatrix()
         glTranslatef(2, base_h, 2)
-        empty_ortho(base_w - 4, 3, base_d - 4, light_grey_range)
+        empty_ortho(base_w - 4, 4, base_d - 4, light_grey_range)
         glPopMatrix()
         glPopMatrix()
 

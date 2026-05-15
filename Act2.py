@@ -266,7 +266,8 @@ def draw_mundo():
     # glTranslatef(60, 0, 65)
     # igv_3dobjects.coche()
 
-    igv_3dobjects.semaforo()
+    # igv_3dobjects.semaforo()
+    igv_3dobjects.farolav4()
     glPopMatrix()
 
 
