@@ -308,4 +308,55 @@ def draw_text_3d(text, x, y, z):
     
     glRasterPos3f(x, y, z)
     for char in text:
-        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))  
+        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))
+
+
+def draw_label_viewport(label, vp_w, vp_h):
+    """
+    Dibuja una etiqueta 2D en la esquina superior izquierda del viewport activo.
+    """
+
+    margen_x = 10
+    margen_y = 20
+
+    # Desactivar profundidad para que el texto no quede oculto
+    glDisable(GL_DEPTH_TEST)
+
+    # Guardar matriz de proyección actual
+    glMatrixMode(GL_PROJECTION)
+    glPushMatrix()
+    glLoadIdentity()
+
+    # Sistema de coordenadas 2D del viewport:
+    # x: 0 -> vp_w
+    # y: 0 -> vp_h
+    gluOrtho2D(0, vp_w, 0, vp_h)
+
+    # Guardar matriz de modelo/vista actual
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+    glLoadIdentity()
+
+    # Color del texto
+    glColor3f(0.0, 0.0, 0.0)
+
+    # Esquina superior izquierda
+    draw_text_3d(
+        label,
+        margen_x,
+        vp_h - margen_y,
+        0
+    )
+
+    # Restaurar matriz de modelo/vista
+    glPopMatrix()
+
+    # Restaurar matriz de proyección
+    glMatrixMode(GL_PROJECTION)
+    glPopMatrix()
+
+    # Volver a modelo/vista
+    glMatrixMode(GL_MODELVIEW)
+
+    # Reactivar profundidad para el resto del dibujo
+    glEnable(GL_DEPTH_TEST)

@@ -82,7 +82,15 @@ light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_3, grey_4, grey_5]
 
 black_5 = [27/255, 38/255, 49/255] 
-
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+                  
 color_piel_claro = [220/255, 190/255, 170/255]
 color_piel_oscuro = [215/255, 185/255, 165/255]
 color_piel = [color_piel_claro, color_piel_claro, color_piel_claro, color_piel_claro, color_piel_oscuro]
@@ -117,7 +125,66 @@ color_golem_hierro = [color_golem_hierro_claro, color_golem_hierro_medio, color_
 
 color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 
+# Necesario para controlar qué objetos mostramos
+visibilidad = {
+    "ejes": True,
+    "coche": False,
+    "carril_bici": False,
+    "acerado": False,
+    "carretera": False,
+}
 
+def cambiar_visibilidad(nombre_objeto):
+    global visibilidad
+
+    if nombre_objeto not in visibilidad:
+        print(f"Objeto no reconocido: {nombre_objeto}")
+        return
+
+    visibilidad[nombre_objeto] = not visibilidad[nombre_objeto]
+
+    estado = "visible" if visibilidad[nombre_objeto] else "oculto"
+    print(f"{nombre_objeto}: {estado}")
+
+    glutPostRedisplay()
+
+
+def gestiona_tecla(key, x, y):
+    match key:
+        case b'\x1b'| b'q' | b'Q':  # ESC, q ó Q
+            print(f"Tecla {key} pulsada -> Salir")
+            salir()
+
+        case b'0':
+            print("Tecla 0 pulsada -> Cambiar visibilidad de ejes")
+            cambiar_visibilidad("ejes")
+
+        case b'1':
+            print("Tecla 1 pulsada -> Cambiar visibilidad de coche")
+            cambiar_visibilidad("coche")
+
+        case b'2':
+            print("Tecla 2 pulsada -> Cambiar visibilidad de carril_bici")
+            cambiar_visibilidad("carril_bici")
+
+        case b'3':
+            print("Tecla 3 pulsada -> Cambiar visibilidad de acerado")
+            cambiar_visibilidad("acerado")
+
+        case b'4':
+            print("Tecla 4 pulsada -> Cambiar visibilidad de carretera")
+            cambiar_visibilidad("carretera")
+
+        case _:
+            print(f"Tecla sin acción asignada: {key}")
+
+
+def salir():
+    try:
+        glutLeaveMainLoop()
+    except Exception:
+        import os
+        os._exit(0)
 
 
 def init_gl():
@@ -206,9 +273,7 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
     gluLookAt(x0, y0, z0, xref, yref, zref, vx, vy, vz)
  
     draw_mundo()
-    #igv_utils.draw_text_3d(label, xMin + 0.5, yMin + 0.5, 0)
-    igv_pedro.draw_label_viewport(label, vp_w, vp_h)
-
+    igv_utils.draw_label_viewport(label, vp_w, vp_h)
 
 
 
@@ -245,28 +310,28 @@ def display():
 
 
 def draw_mundo():
-    if igv_pedro.visibilidad["ejes"]:
+    if visibilidad["ejes"]:
         igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
 
-    if igv_pedro.visibilidad["carril_bici"]:
+    if visibilidad["carril_bici"]:
         glPushMatrix()
         glTranslatef(-100, 0, 70)
         igv_3dobjects.carril_bici()
         glPopMatrix()
 
-    if igv_pedro.visibilidad["acerado"]:
+    if visibilidad["acerado"]:
         glPushMatrix()
         glTranslatef(-100, 0, 30)
         igv_3dobjects.acerado()
         glPopMatrix()
 
-    if igv_pedro.visibilidad["carretera"]:
+    if visibilidad["carretera"]:
         glPushMatrix()
         glTranslatef(-100, 0, -10)
         igv_3dobjects.carretera()
         glPopMatrix()
 
-    if igv_pedro.visibilidad["coche"]:
+    if visibilidad["coche"]:
         glPushMatrix()
         glTranslatef(60, 0, 65)
         igv_3dobjects.coche()
@@ -275,9 +340,8 @@ def draw_mundo():
 def main():
     init_gl()
     glutDisplayFunc(display)
-    glutKeyboardFunc(igv_pedro.gestiona_tecla)
+    glutKeyboardFunc(gestiona_tecla)
     glutMainLoop()   
 
-if __name__ == "__main__":
-    main()
+main()
 

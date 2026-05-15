@@ -14,6 +14,7 @@ from random import randint
 from random import choice
 
 
+"""
 # Necesario para controlar qué objetos mostramos
 visibilidad = {
     "ejes": True,
@@ -74,12 +75,11 @@ def salir():
     except Exception:
         import os
         os._exit(0)
+"""
 
+"""
 def draw_label_viewport(label, vp_w, vp_h):
-    """
-    Dibuja una etiqueta 2D en la esquina superior izquierda
-    del viewport activo.
-    """
+    ### Dibuja una etiqueta 2D en la esquina superior izquierda del viewport activo.
 
     margen_x = 10
     margen_y = 20
@@ -125,3 +125,4 @@ def draw_label_viewport(label, vp_w, vp_h):
 
     # Reactivar profundidad para el resto del dibujo
     glEnable(GL_DEPTH_TEST)
+ """
