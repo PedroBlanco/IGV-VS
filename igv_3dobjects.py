@@ -1029,7 +1029,7 @@ def semaforo():
         # Pedestal superior para rematar la transición al poste
         glPushMatrix()
         glTranslatef(2, base_h, 2)
-        empty_ortho(base_w - 4, 4, base_d - 4, light_grey_range)
+        empty_ortho(base_w - 4, 3, base_d - 4, light_grey_range)
         glPopMatrix()
         glPopMatrix()
 
@@ -1097,7 +1097,47 @@ def semaforo():
     pantalla()
     glPopMatrix()
 
-
+def farolav4():
+    # Base 1
+    glPushMatrix()
+    empty_pipe_y(9, 12, 9, very_dark_grey)
+    glTranslatef(0, 12, 0)
+    solid_face_xz(9, 9, very_dark_grey)
+    glPopMatrix()
+ 
+    # Base 2
+    glPushMatrix()
+    glTranslatef(2, 13, 2)
+    empty_pipe_y(5, 12, 5, dark_grey_range)
+    glTranslatef(0, 12, 0)
+    solid_face_xz(5, 5, dark_grey_range)
+    glPopMatrix()
+ 
+    # Barra vertical central (Sostiene toda la estructura)
+    glPushMatrix()
+    glTranslatef(3, 25, 3)
+    empty_pipe_y(3, 30, 3, dark_grey_range)
+    glPopMatrix()
+ 
+    # Brazo horizontal derecho (Se mantiene arriba, en Y = 50)
+    glPushMatrix()
+    glTranslatef(6, 50, 3)
+    empty_pipe_x(6, 3, 3, dark_grey_range)
+    glPopMatrix()
+ 
+    # Farol colgante (Mirando hacia abajo)
+    # Se posiciona en el extremo del brazo horizontal (X = 12)
+    # Se desplaza hacia abajo en el eje Y (Y = 38) para que cuelgue de la barra
+    glPushMatrix()
+    glTranslatef(12, 38, 3) 
+    empty_pipe_y(3, 12, 3, dark_grey_range) # El farol ahora se extiende hacia abajo
+    glPopMatrix()
+    glPushMatrix()
+    # Se posiciona en Y=35 (3 unidades por debajo de la boca del farol)
+    glTranslatef(12, 35, 3) 
+    # 
+    empty_pipe_y(3, 12, 3, dark_yellow_range) 
+    glPopMatrix()
 
 
 
