@@ -194,6 +194,7 @@ def gestiona_tecla(key, x, y):
 
 
 def salir():
+    
     try:
         glutLeaveMainLoop()
     except Exception:
@@ -318,41 +319,67 @@ def display():
     # Viewport 4 (abajo-derecha): proyección en perspectiva, cámara elevada
     draw_viewport(vp_w, 0, vp_w, vp_h,
                   projection="perspective", lookAt="perspectiva",
-                  label="Perspectiva simetrica")
+                  label="Perspectiva simétrica")
  
     glFlush()
 
 
 def draw_mundo():
-    igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
-    glPushMatrix()
-    # glTranslatef(-100, 0, 70)
-    # igv_3dobjects.carril_bici()
-    # glPopMatrix()
+    if visibilidad["ejes"]:
+        igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
 
-    # glPushMatrix()
-    # glTranslatef(-100, 0, 30)
-    # igv_3dobjects.acerado()
-    # glPopMatrix()
+    if visibilidad["carril_bici"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 70)
+        igv_3dobjects.carril_bici()
+        glPopMatrix()
 
-    # glPushMatrix()
-    # glTranslatef(-100, 0, -10)
-    # igv_3dobjects.carretera()
-    # glPopMatrix()
+    if visibilidad["acerado"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 30)
+        igv_3dobjects.acerado()
+        glPopMatrix()
 
-    # glPushMatrix()
-    # glTranslatef(20, 0, -8)
-    # igv_3dobjects.pasodecebra()
-    # glPopMatrix()
+    if visibilidad["carretera"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, -10)
+        igv_3dobjects.carretera()
+        glPopMatrix()
 
-    # glPushMatrix()
-    # glTranslatef(60, 0, 65)
-    # igv_3dobjects.coche()
+    if visibilidad["coche"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        igv_3dobjects.coche()
+        glPopMatrix()
+    
+    if visibilidad["pasodecebra"]:
+        glPushMatrix()
+        glTranslatef(20, 0, -8)
+        igv_3dobjects.pasodecebra()
+        glPopMatrix()
 
-    igv_3dobjects.semaforo()
-    # igv_3dobjects.farolav4()
-    glPopMatrix()
+    if visibilidad["semaforo"]:
+        glPushMatrix()
+        # glTranslatef(15, 0, -5)
+        #glTranslatef(18, 4, 42)
+        # Cambio rápido
+        glTranslatef(10, 2, 42)
+        # rotar en el eje y 90 grados 
+        glRotatef(90, 0, 1, 0)
+        igv_3dobjects.semaforo()
+        glPopMatrix()
 
+    if visibilidad["farola"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        glRotatef(90, 0, 1, 0)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
+        glPushMatrix()
+        glTranslatef(-60, 0, 59)
+        glRotatef(270, 0, 1, 0)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
 
 
 def main():
