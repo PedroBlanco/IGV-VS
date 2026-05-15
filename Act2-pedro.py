@@ -9,7 +9,6 @@ from math import pi
 
 import igv_utils    # Módulo con funciones definidas para la asignatura
 import igv_3dobjects
-import igv_pedro
 
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
 xMin = yMin = zMin = - axes_length
@@ -132,6 +131,9 @@ visibilidad = {
     "carril_bici": False,
     "acerado": False,
     "carretera": False,
+    "pasodecebra": False,
+    "semaforo": False,
+    "farola": False
 }
 
 def cambiar_visibilidad(nombre_objeto):
@@ -175,11 +177,24 @@ def gestiona_tecla(key, x, y):
             print("Tecla 4 pulsada -> Cambiar visibilidad de carretera")
             cambiar_visibilidad("carretera")
 
+        case b'5':
+            print("Tecla 5 pulsada -> Cambiar visibilidad de pasodecebra")
+            cambiar_visibilidad("pasodecebra")
+
+        case b'6':
+            print("Tecla 6 pulsada -> Cambiar visibilidad de semaforo")
+            cambiar_visibilidad("semaforo")
+
+        case b'7':
+            print("Tecla 7 pulsada -> Cambiar visibilidad de farola")
+            cambiar_visibilidad("farola")
+
         case _:
             print(f"Tecla sin acción asignada: {key}")
 
 
 def salir():
+    
     try:
         glutLeaveMainLoop()
     except Exception:
@@ -190,7 +205,7 @@ def salir():
 def init_gl():
     glutInit()                                     # Inicializa la libre­ría GLUT
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Único frame buffer y modo de color RGB y buffer de prof
-    glutInitWindowSize(1800, 800)                   #(height, width)
+    glutInitWindowSize(1000, 650)                   #(height, width)
     glutInitWindowPosition(0, 0)               #(x pos, y pos)
 
     glutCreateWindow(b'Actividad Grupal')          # Creación de la ventana (si no se pone b da error)
@@ -304,7 +319,7 @@ def display():
     # Viewport 4 (abajo-derecha): proyección en perspectiva, cámara elevada
     draw_viewport(vp_w, 0, vp_w, vp_h,
                   projection="perspective", lookAt="perspectiva",
-                  label="Perspectiva simetrica")
+                  label="Perspectiva simétrica")
  
     glFlush()
 
@@ -336,6 +351,28 @@ def draw_mundo():
         glTranslatef(60, 0, 65)
         igv_3dobjects.coche()
         glPopMatrix()
+    
+    if visibilidad["pasodecebra"]:
+        glPushMatrix()
+        glTranslatef(20, 0, -8)
+        igv_3dobjects.pasodecebra()
+        glPopMatrix()
+
+    if visibilidad["semaforo"]:
+        glPushMatrix()
+        # glTranslatef(15, 0, -5)
+        glTranslatef(18, 4, 42)
+        # rotar en el eje y 90 grados 
+        glRotatef(90, 0, 1, 0)
+        igv_3dobjects.semaforo()
+        glPopMatrix()
+
+    if visibilidad["farola"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
+
 
 def main():
     init_gl()
