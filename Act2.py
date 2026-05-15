@@ -81,7 +81,15 @@ light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_3, grey_4, grey_5]
 
 black_5 = [27/255, 38/255, 49/255] 
-
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+                  
 color_piel_claro = [220/255, 190/255, 170/255]
 color_piel_oscuro = [215/255, 185/255, 165/255]
 color_piel = [color_piel_claro, color_piel_claro, color_piel_claro, color_piel_claro, color_piel_oscuro]
@@ -122,7 +130,7 @@ color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 def init_gl():
     glutInit()                                     # Inicializa la librerÃ­a GLUT
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Ãšnico frame buffer y modo de color RGB y buffer de prof
-    glutInitWindowSize(1800, 800)                   #(height, width)
+    glutInitWindowSize(1000, 650)                   #(height, width)
     glutInitWindowPosition(100, 100)               #(x pos, y pos)
     glutCreateWindow(b'actividad grupal')          # CreaciÃ³n de la ventana (si no se pone b da error)
     glClearColor(1.0, 1.0, 1.0, 1.0);              # Color del buffer
@@ -243,26 +251,32 @@ def display():
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
     glPushMatrix()
-    glTranslatef(-100, 0, 70)
-    igv_3dobjects.carril_bici()
+    # glTranslatef(-100, 0, 70)
+    # igv_3dobjects.carril_bici()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(-100, 0, 30)
+    # igv_3dobjects.acerado()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(-100, 0, -10)
+    # igv_3dobjects.carretera()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # igv_3dobjects.pasodecebra()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(60, 0, 65)
+    # igv_3dobjects.coche()
+
+    igv_3dobjects.semaforo()
+    # igv_3dobjects.farolav4()
     glPopMatrix()
-
-    glPushMatrix()
-    glTranslatef(-100, 0, 30)
-    igv_3dobjects.acerado()
-    glPopMatrix()
-
-    glPushMatrix()
-    glTranslatef(-100, 0, -10)
-    igv_3dobjects.carretera()
-    glPopMatrix()
-
-    glPushMatrix()
-    glTranslatef(60, 0, 65)
-    igv_3dobjects.coche()
-    glPopMatrix()
-
-
 
 
 

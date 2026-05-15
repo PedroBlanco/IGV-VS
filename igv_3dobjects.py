@@ -79,6 +79,15 @@ grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
 light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_3, grey_4, grey_5]
 
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+
 black_5 = [27/255, 38/255, 49/255] 
 
 color_piel_claro = [220/255, 190/255, 170/255]
@@ -393,6 +402,68 @@ def empty_pipe_y(x_size, y_size, z_size, colors):
         
     # Restaurar la matriz MODELVIEW
     glPopMatrix()
+
+def empty_pipe_x(x_size, y_size, z_size, colors):
+
+    # Comprobar x_size, y_size, z_size
+    if (x_size < 3) or (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_pipe_x")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+ 
+
+    for x in range(x_size):
+        empty_face_yz(y_size, z_size, colors)
+        glTranslatef(1,0,0)
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
+
+def empty_face_yz(y_size, z_size, colors):
+
+    # Comprobar x_size, z_size
+    if (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_face_xz")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 1, 0)
+
+ 
+
+            
+    for z in range(z_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, 1)            
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, -1, 0)           
+
+ 
+
+    for z in range(z_size):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, -1)   
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
 
 
 def tree(color_trunk, color_top):
@@ -978,4 +1049,166 @@ def coche():
         glTranslatef(lx, ly, lz)
         solid_ortho(luz_trasera_x, luz_trasera_y, luz_trasera_z, dark_red_range) 
         glPopMatrix()
+
+def pasodecebra():
+    glPushMatrix()    
+    largo_x= 20
+    ancho_z= 2
+    franjas= 10
+    separacion= 2
+    i=0
+   
+    for i in range(franjas):
+        glPushMatrix()
+ 
+        # Desplazar cada franja en Z
+        glTranslatef(0, 0, i * (ancho_z + separacion))
+ 
+        # Dibujar franja blanca
+        solid_ortho(
+            int(largo_x),   # tamaño en X
+            2,              # grosor en Y
+            int(ancho_z),   # tamaño en Z
+            [grey_1]
+           
+        )
+        glPopMatrix()
+    glPopMatrix()
+
+def semaforo():
+    escala = 0.5 # MODIFICAR AQUI PARA REDUCIR O AUMENTAR
+    base_w = 18
+    base_h = 20
+    base_d = 18
+    palo_w = 4
+    palo_h = 50
+    palo_d = 4
+    pantalla_w = 12
+    pantalla_h = 42
+    pantalla_d = 10
+   
+    def base():
+        glPushMatrix()
+        empty_ortho(base_w, base_h, base_d, grey_range)
+
+        # Zócalo inferior más ancho para mayor estabilidad visual
+        glPushMatrix()
+        glTranslatef(-3, -4, -3)
+        empty_ortho(base_w + 6, 4, base_d + 6, dark_grey_range)
+        glPopMatrix()
+
+        # Pedestal superior para rematar la transición al poste
+        glPushMatrix()
+        glTranslatef(2, base_h, 2)
+        empty_ortho(base_w - 4, 4, base_d - 4, light_grey_range)
+        glPopMatrix()
+        glPopMatrix()
+
+    def palo():
+        glPushMatrix()
+        glTranslate(base_w / 2 - palo_w / 2, base_h, base_d / 2 - palo_d / 2)
+        empty_ortho(palo_w, palo_h, palo_d, dark_grey_range)
+        glPopMatrix()
+
+    def pantalla():
+        pantalla_x = base_w / 2 - pantalla_w / 2
+        pantalla_y = base_h + palo_h
+        pantalla_z = base_d / 2 - pantalla_d / 2
+
+        def circulo_luz(cx, cy, cz, radio, color):
+            glPushMatrix()
+            glColor3f(color[0], color[1], color[2])
+            glBegin(GL_POLYGON)
+            segmentos = 36
+            for i in range(segmentos):
+                angulo = 2 * pi * i / segmentos
+                glVertex3f(cx + radio * cos(angulo), cy + radio * sin(angulo), cz)
+            glEnd()
+            glPopMatrix()
+
+        def centros_verticales(radio, separacion, cantidad, alto_total):
+            alto_grupo = cantidad * (2 * radio) + (cantidad - 1) * separacion
+            y_inicio = (alto_total - alto_grupo) / 2 + radio
+            return [y_inicio + i * (2 * radio + separacion) for i in range(cantidad)]
+
+        glPushMatrix()
+        glTranslatef(pantalla_x, pantalla_y, pantalla_z)
+        empty_ortho(pantalla_w, pantalla_h, pantalla_d, dark_grey_range)
+        glPopMatrix()
+
+        def dibujar_luz(indice, color_rango):
+            glPushMatrix()
+            glTranslatef(pantalla_x, pantalla_y, pantalla_z)
+            radio = 2.4
+            separacion = 4.5
+            y = centros_verticales(radio, separacion, 3, pantalla_h)
+            x_centro = pantalla_w / 2
+            z_frente = pantalla_d + 0.2
+            circulo_luz(x_centro, y[indice], z_frente, radio + 0.9, black_5)
+            circulo_luz(x_centro, y[indice], z_frente + 0.01, radio, choice(color_rango))
+            glPopMatrix()
+
+        def luz_arriba():
+            dibujar_luz(2, dark_green_range)
+
+        def luz_medio():
+            dibujar_luz(1, dark_yellow_range)
+
+        def luz_abajo():
+            dibujar_luz(0, dark_red_range)
+
+        luz_arriba()
+        luz_medio()
+        luz_abajo()
+
+    glPushMatrix()
+    glScalef(escala, escala, escala)
+    base()
+    palo()
+    pantalla()
+    glPopMatrix()
+
+def farolav4():
+    # Base 1
+    glPushMatrix()
+    empty_pipe_y(9, 12, 9, very_dark_grey)
+    glTranslatef(0, 12, 0)
+    solid_face_xz(9, 9, very_dark_grey)
+    glPopMatrix()
+ 
+    # Base 2
+    glPushMatrix()
+    glTranslatef(2, 13, 2)
+    empty_pipe_y(5, 12, 5, dark_grey_range)
+    glTranslatef(0, 12, 0)
+    solid_face_xz(5, 5, dark_grey_range)
+    glPopMatrix()
+ 
+    # Barra vertical central (Sostiene toda la estructura)
+    glPushMatrix()
+    glTranslatef(3, 25, 3)
+    empty_pipe_y(3, 30, 3, dark_grey_range)
+    glPopMatrix()
+ 
+    # Brazo horizontal derecho (Se mantiene arriba, en Y = 50)
+    glPushMatrix()
+    glTranslatef(6, 50, 3)
+    empty_pipe_x(6, 3, 3, dark_grey_range)
+    glPopMatrix()
+ 
+    # Farol colgante (Mirando hacia abajo)
+    # Se posiciona en el extremo del brazo horizontal (X = 12)
+    # Se desplaza hacia abajo en el eje Y (Y = 38) para que cuelgue de la barra
+    glPushMatrix()
+    glTranslatef(12, 38, 3) 
+    empty_pipe_y(3, 12, 3, dark_grey_range) # El farol ahora se extiende hacia abajo
+    glPopMatrix()
+    glPushMatrix()
+    # Se posiciona en Y=35 (3 unidades por debajo de la boca del farol)
+    glTranslatef(12, 35, 3) 
+    # 
+    empty_pipe_y(3, 12, 3, dark_yellow_range) 
+    glPopMatrix()
+
+
 
