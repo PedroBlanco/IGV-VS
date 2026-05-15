@@ -1006,9 +1006,9 @@ def pasodecebra():
 
 def semaforo():
     escala = 0.8
-    base_w = 20
+    base_w = 18
     base_h = 20
-    base_d = 20
+    base_d = 18
     palo_w = 4
     palo_h = 50
     palo_d = 4
