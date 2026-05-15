@@ -1149,14 +1149,14 @@ def semaforo():
             glPopMatrix()
 
         def luz_arriba():
-            dibujar_luz(2, dark_green_range)
+            dibujar_luz(2, dark_red_range)
+
 
         def luz_medio():
             dibujar_luz(1, dark_yellow_range)
 
         def luz_abajo():
-            dibujar_luz(0, dark_red_range)
-
+            dibujar_luz(0, dark_green_range)
         luz_arriba()
         luz_medio()
         luz_abajo()
@@ -1211,4 +1211,58 @@ def farolav4():
     glPopMatrix()
 
 
+def farolav5():
+    # Base 1
+    def base1():
+        glPushMatrix()
+        empty_pipe_y(9, 12, 9, very_dark_grey)
+        glTranslatef(0, 12, 0)
+        solid_face_xz(9, 9, very_dark_grey)
+        glPopMatrix()
+ 
+    # Base 2
+    def base2():
+        glPushMatrix()
+        glTranslatef(2, 13, 2)
+        empty_pipe_y(5, 12, 5, dark_grey_range)
+        glTranslatef(0, 12, 0)
+        solid_face_xz(5, 5, dark_grey_range)
+        glPopMatrix()
+ 
+    # Barra vertical central (Sostiene toda la estructura)
+    def barra_vertical():
+        glPushMatrix()
+        glTranslatef(3, 25, 3)
+        empty_pipe_y(3, 30, 3, dark_grey_range)
+        glPopMatrix()
+ 
+    # Brazo horizontal derecho (Se mantiene arriba, en Y = 50)
+    def brazo_horizontal():
+        glPushMatrix()
+        glTranslatef(6, 50, 3)
+        empty_pipe_x(6, 3, 3, dark_grey_range)
+        glPopMatrix()
+ 
+        # Farol colgante (Mirando hacia abajo)
+        # Se posiciona en el extremo del brazo horizontal (X = 12)
+        # Se desplaza hacia abajo en el eje Y (Y = 38) para que cuelgue de la barra
+        glPushMatrix()
+        glTranslatef(12, 38, 3) 
+        empty_pipe_y(3, 12, 3, dark_grey_range) # El farol ahora se extiende hacia abajo
+        glPopMatrix()
+        glPushMatrix()
+        # Se posiciona en Y=35 (3 unidades por debajo de la boca del farol)
+        glTranslatef(12, 35, 3) 
+         
+        empty_pipe_y(3, 12, 3, dark_yellow_range) 
+        glPopMatrix()
+
+    glPushMatrix()
+    base1()
+    base2()
+    barra_vertical()
+    brazo_horizontal()
+    glRotatef(180, 0, 1, 0)
+    brazo_horizontal()
+    glPopMatrix()
 

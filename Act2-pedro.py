@@ -361,7 +361,9 @@ def draw_mundo():
     if visibilidad["semaforo"]:
         glPushMatrix()
         # glTranslatef(15, 0, -5)
-        glTranslatef(18, 4, 42)
+        #glTranslatef(18, 4, 42)
+        # Cambio rápido
+        glTranslatef(10, 2, 42)
         # rotar en el eje y 90 grados 
         glRotatef(90, 0, 1, 0)
         igv_3dobjects.semaforo()
@@ -370,6 +372,12 @@ def draw_mundo():
     if visibilidad["farola"]:
         glPushMatrix()
         glTranslatef(60, 0, 65)
+        glRotatef(90, 0, 1, 0)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
+        glPushMatrix()
+        glTranslatef(-60, 0, 59)
+        glRotatef(270, 0, 1, 0)
         igv_3dobjects.farolav4()
         glPopMatrix()
 
