@@ -122,7 +122,7 @@ color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 def init_gl():
     glutInit()                                     # Inicializa la librerÃ­a GLUT
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Ãšnico frame buffer y modo de color RGB y buffer de prof
-    glutInitWindowSize(1800, 800)                   #(height, width)
+    glutInitWindowSize(1000, 650)                   #(height, width)
     glutInitWindowPosition(100, 100)               #(x pos, y pos)
     glutCreateWindow(b'actividad grupal')          # CreaciÃ³n de la ventana (si no se pone b da error)
     glClearColor(1.0, 1.0, 1.0, 1.0);              # Color del buffer
@@ -243,28 +243,30 @@ def display():
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
     glPushMatrix()
-    glTranslatef(-100, 0, 70)
-    igv_3dobjects.carril_bici()
-    glPopMatrix()
+    # glTranslatef(-100, 0, 70)
+    # igv_3dobjects.carril_bici()
+    # glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(-100, 0, 30)
-    igv_3dobjects.acerado()
-    glPopMatrix()
+    # glPushMatrix()
+    # glTranslatef(-100, 0, 30)
+    # igv_3dobjects.acerado()
+    # glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(-100, 0, -10)
-    igv_3dobjects.carretera()
-    glPopMatrix()
+    # glPushMatrix()
+    # glTranslatef(-100, 0, -10)
+    # igv_3dobjects.carretera()
+    # glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(20, 0, -8)
-    igv_3dobjects.pasodecebra()
-    glPopMatrix()
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # igv_3dobjects.pasodecebra()
+    # glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(60, 0, 65)
-    igv_3dobjects.coche()
+    # glPushMatrix()
+    # glTranslatef(60, 0, 65)
+    # igv_3dobjects.coche()
+
+    igv_3dobjects.semaforo()
     glPopMatrix()
 
 

@@ -1003,3 +1003,97 @@ def pasodecebra():
         )
         glPopMatrix()
     glPopMatrix()
+
+def semaforo():
+    base_w = 20;  base_h = 20;  base_d = 20     # pedestal
+    palo_w= 4; palo_h = 50; palo_d = 4
+
+    red_w = 4;  red_h = 2;  red_d = 4     # reductor
+    fus_w = 2;  fus_h = 20; fus_d = 2     # fuste
+    bra_l = 10; bra_d = 2                 # brazo (longitud en X, profundidad en Z)
+    cue_w = 2;  cue_h = 4;  cue_d = 2     # cuello
+    lin_w = 6;  lin_h = 6;  lin_d = 4     # linterna
+   
+    def base():
+        glPushMatrix()
+        empty_ortho(base_w, base_h, base_d, light_grey_range)
+        glPopMatrix()
+
+    def palo():
+        glPushMatrix()
+        # glTranslatef(8,20,8 )
+        glTranslate(base_w/2-palo_w/2, base_h, base_d/2-palo_d/2 )
+        empty_ortho(4, 50, 4, light_grey_range)
+        glPopMatrix()
+
+    def pantalla():
+        pantalla_w = 10
+        pantalla_h = 40
+        pantalla_d = 10
+
+        def circulo_luz(cx, cy, cz, radio, color):
+            glPushMatrix()
+            glColor3f(color[0], color[1], color[2])
+            glBegin(GL_POLYGON)
+            segmentos = 36
+            for i in range(segmentos):
+                angulo = 2 * pi * i / segmentos
+                glVertex3f(cx + radio * cos(angulo), cy + radio * sin(angulo), cz)
+            glEnd()
+            glPopMatrix()
+
+        def centros_verticales(radio, separacion, cantidad, alto_total):
+            alto_grupo = cantidad * (2 * radio) + (cantidad - 1) * separacion
+            y_inicio = (alto_total - alto_grupo) / 2 + radio
+            return [y_inicio + i * (2 * radio + separacion) for i in range(cantidad)]
+
+        glPushMatrix()
+        glTranslatef(8,70,8 )
+        empty_ortho(pantalla_w, pantalla_h, pantalla_d, light_grey_range)
+        glPopMatrix()
+
+        def luz_arriba():
+            glPushMatrix()
+            glTranslatef(8,70,8 )
+            radio = 2
+            separacion = 4
+            y = centros_verticales(radio, separacion, 3, pantalla_h)
+            x_centro = pantalla_w / 2
+            z_frente = pantalla_d + 0.2
+            circulo_luz(x_centro, y[2], z_frente, radio, choice(dark_green_range))
+            glPopMatrix()
+
+
+        def luz_medio():
+            glPushMatrix()
+            glTranslatef(8,70,8 )
+            radio = 2
+            separacion = 4
+            y = centros_verticales(radio, separacion, 3, pantalla_h)
+            x_centro = pantalla_w / 2
+            z_frente = pantalla_d + 0.2
+            circulo_luz(x_centro, y[1], z_frente, radio, choice(dark_yellow_range))
+            glPopMatrix()
+
+        def luz_abajo():
+            glPushMatrix()
+            glTranslatef(8,70,8 )
+            radio = 2
+            separacion = 4
+            y = centros_verticales(radio, separacion, 3, pantalla_h)
+            x_centro = pantalla_w / 2
+            z_frente = pantalla_d + 0.2
+            circulo_luz(x_centro, y[0], z_frente, radio, choice(dark_red_range))
+            glPopMatrix()
+        luz_arriba()
+        luz_medio()
+        luz_abajo()
+
+    base()
+    palo()
+    pantalla()
+
+
+
+
+
