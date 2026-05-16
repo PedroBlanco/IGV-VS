@@ -88,6 +88,15 @@ light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_4, grey_5, grey_6]
 very_dark_grey = [grey_6, grey_7, grey_8]
 
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+
 black_5 = [27/255, 38/255, 49/255] 
 
 color_piel_claro = [220/255, 190/255, 170/255]
@@ -402,6 +411,68 @@ def empty_pipe_y(x_size, y_size, z_size, colors):
         
     # Restaurar la matriz MODELVIEW
     glPopMatrix()
+
+def empty_pipe_x(x_size, y_size, z_size, colors):
+
+    # Comprobar x_size, y_size, z_size
+    if (x_size < 3) or (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_pipe_x")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+ 
+
+    for x in range(x_size):
+        empty_face_yz(y_size, z_size, colors)
+        glTranslatef(1,0,0)
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
+
+def empty_face_yz(y_size, z_size, colors):
+
+    # Comprobar x_size, z_size
+    if (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_face_xz")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 1, 0)
+
+ 
+
+            
+    for z in range(z_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, 1)            
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, -1, 0)           
+
+ 
+
+    for z in range(z_size):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, -1)   
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
 
 def empty_pipe_x(x_size, y_size, z_size, colors):
 
@@ -1050,6 +1121,107 @@ def coche():
         solid_ortho(luz_trasera_x, luz_trasera_y, luz_trasera_z, dark_red_range) 
         glPopMatrix()
 
+def coche2():
+    #Colores 
+    c_chasis = dark_blue_range
+    # c_cabina = [0.6, 0.8, 1.0]  
+    # c_rueda = [0.1, 0.1, 0.1]   
+    # c_luz_del = [1.0, 0.0, 0.0] 
+    # c_luz_tras = [1.0, 0.0, 0.0]
+ 
+    #Cubo Inferior (Chasis)
+    # Dimensiones: Largo=20, Alto=5, Ancho=6
+    glPushMatrix()
+    glTranslatef(0, 2, 0) # Base en Y=2 -> El techo queda en Y=7 (2 + 5)
+    solid_ortho(20, 5, 6, c_chasis)
+    glPopMatrix()
+ 
+    # cubo Superior
+    # Dimensiones para no sobresalir: Largo=16, Alto=4, Ancho=4
+    # Centrado en X: (20 - 16) / 2 = 2
+    # Centrado en Z: (6 - 4) / 2 = 1  
+    glPushMatrix()
+    glTranslatef(2, 7, 1) # Y=7 apila el cubo justo en el techo del chasis
+    solid_ortho(16, 4, 4, dark_red_range)
+    glPopMatrix()
+ 
+    # Ruedas
+    # Tamaño: Largo=3, Alto=3, Ancho=2
+    # Chasis en Z va de 0 a 6.
+    # Izquierda: z=0 (empieza en el borde y ocupa hasta z=2)
+    # Derecha:   z=4 (empieza en 4 y ocupa hasta z=6)
+    rueda_x, rueda_y, rueda_z = 3, 3, 2
+    posiciones_ruedas = [
+        (3, 0, 0),   # Delantera Izquierda
+        (3, 0, 4),   # Delantera Derecha
+        (14, 0, 0),  # Trasera Izquierda
+        (14, 0, 4)   # Trasera Derecha
+    ]
+ 
+    for (rx, ry, rz) in posiciones_ruedas:
+        glPushMatrix()
+        glTranslatef(rx, ry, rz)
+        solid_ortho(rueda_x, rueda_y, rueda_z, dark_red_range)
+        glPopMatrix()
+ 
+    # Luces Delanteras
+    posiciones_luces_del = [
+        (0, 4, 0.5), 
+        (0, 4, 4.5)  
+    ]
+    for (lx, ly, lz) in posiciones_luces_del:
+        glPushMatrix()
+        glTranslatef(lx, ly, lz)
+        solid_ortho(1, 2, 1, dark_yellow_range)
+        glPopMatrix()
+ 
+    # Luces Traseras 
+    posiciones_luces_tras = [
+        (19, 4, 0.5), 
+        (19, 4, 4.5)
+    ]
+    for (lx, ly, lz) in posiciones_luces_tras:
+        glPushMatrix()
+        glTranslatef(lx, ly, lz)
+        solid_ortho(1, 2, 1, dark_red_range)
+        glPopMatrix()
+ 
+  # # Lateral Derecho (Cara exterior en Z = 5)
+  #   glPushMatrix()
+  #   glTranslatef(4, 8, 5.05) # 5.05 sobresale ligeramente de la pared derecha
+  #   solid_face_xy(12, 2, light_grey_range)
+  #   glPopMatrix()
+    # Lateral Derecho
+    # Dimensiones: Largo=10, Alto=2
+    glPushMatrix()
+    # Z=4.05 "saca" la ventana del interior del chasis y la pega a la superficie exterior derecha
+    glTranslatef(5, 8, 4.05) 
+    solid_face_xy(10, 2, light_grey_range)
+    glPopMatrix()
+ 
+    #Lateral Izquierdo (Cara exterior en Z = 1)
+    glPushMatrix()
+    glTranslatef(4, 8, 0.95) # 
+    solid_face_xy(12, 2, light_grey_range)
+    glPopMatrix()
+    #Parabrisas Trasero (Parte trasera de la cabina, X = 18)
+    glPushMatrix()
+    # Se sitúa justo en la pared trasera (X = 18.05)
+    glTranslatef(18.05, 8, 2)
+    solid_face_yz(2, 2, light_grey_range)
+    glPopMatrix()
+ 
+    #Parabrisas Delantero 
+    # Dimensiones: Alto (Y) = 2, Ancho (Z) = 2
+    glPushMatrix()
+    # X=2.05 coloca el plano justo en la superficie frontal exterior
+    # Y=8 centra la ventana verticalmente en la cabina
+    # Z=3.95 compensa el avance de la función para que quede centrado de Z=2 a Z=4
+    glTranslatef(2.05, 8, 3.95)
+    solid_face_yz(2, 2, light_grey_range)
+    glPopMatrix()
+
+
 def pasodecebra():
     glPushMatrix()    
     largo_x= 20
@@ -1149,14 +1321,14 @@ def semaforo():
             glPopMatrix()
 
         def luz_arriba():
-            dibujar_luz(2, dark_red_range)
-
+            dibujar_luz(2, dark_green_range)
 
         def luz_medio():
             dibujar_luz(1, dark_yellow_range)
 
         def luz_abajo():
-            dibujar_luz(0, dark_green_range)
+            dibujar_luz(0, dark_red_range)
+
         luz_arriba()
         luz_medio()
         luz_abajo()
@@ -1211,58 +1383,4 @@ def farolav4():
     glPopMatrix()
 
 
-def farolav5():
-    # Base 1
-    def base1():
-        glPushMatrix()
-        empty_pipe_y(9, 12, 9, very_dark_grey)
-        glTranslatef(0, 12, 0)
-        solid_face_xz(9, 9, very_dark_grey)
-        glPopMatrix()
- 
-    # Base 2
-    def base2():
-        glPushMatrix()
-        glTranslatef(2, 13, 2)
-        empty_pipe_y(5, 12, 5, dark_grey_range)
-        glTranslatef(0, 12, 0)
-        solid_face_xz(5, 5, dark_grey_range)
-        glPopMatrix()
- 
-    # Barra vertical central (Sostiene toda la estructura)
-    def barra_vertical():
-        glPushMatrix()
-        glTranslatef(3, 25, 3)
-        empty_pipe_y(3, 30, 3, dark_grey_range)
-        glPopMatrix()
- 
-    # Brazo horizontal derecho (Se mantiene arriba, en Y = 50)
-    def brazo_horizontal():
-        glPushMatrix()
-        glTranslatef(6, 50, 3)
-        empty_pipe_x(6, 3, 3, dark_grey_range)
-        glPopMatrix()
- 
-        # Farol colgante (Mirando hacia abajo)
-        # Se posiciona en el extremo del brazo horizontal (X = 12)
-        # Se desplaza hacia abajo en el eje Y (Y = 38) para que cuelgue de la barra
-        glPushMatrix()
-        glTranslatef(12, 38, 3) 
-        empty_pipe_y(3, 12, 3, dark_grey_range) # El farol ahora se extiende hacia abajo
-        glPopMatrix()
-        glPushMatrix()
-        # Se posiciona en Y=35 (3 unidades por debajo de la boca del farol)
-        glTranslatef(12, 35, 3) 
-         
-        empty_pipe_y(3, 12, 3, dark_yellow_range) 
-        glPopMatrix()
-
-    glPushMatrix()
-    base1()
-    base2()
-    barra_vertical()
-    brazo_horizontal()
-    glRotatef(180, 0, 1, 0)
-    brazo_horizontal()
-    glPopMatrix()
 
