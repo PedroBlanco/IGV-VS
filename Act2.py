@@ -151,6 +151,14 @@ def cambiar_visibilidad(nombre_objeto):
 
     glutPostRedisplay()
 
+    imprimir_visibilidad()
+
+def imprimir_visibilidad():
+    i = 0
+    for key, value in visibilidad.items():
+        print(f"({i}) {key}: {value}.", end=" ")
+        i += 1
+    print()
 
 def gestiona_tecla(key, x, y):
     match key:
@@ -429,13 +437,13 @@ def draw_mundo_b():
         glPushMatrix()
         glTranslatef(-5, 50, -5)
         glScalef(2, 1.5, 4)
-        igv_3dobjects.nube(dark_grey_range)
+        igv_3dobjects.nube(grey_range)
         glPopMatrix()
         
         glPushMatrix()
         glTranslatef(-20, 40, 50)
         glScalef(0.5, 1, 1)
-        igv_3dobjects.nube(grey_range)
+        igv_3dobjects.nube(dark_grey_range)
         glPopMatrix()
 
 
@@ -444,6 +452,7 @@ def main():
     init_gl()
     glutDisplayFunc(display)
     glutKeyboardFunc(gestiona_tecla)
+    imprimir_visibilidad()
     glutMainLoop()   
 
 main()
