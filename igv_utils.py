@@ -311,3 +311,31 @@ def draw_text_3d(text, x, y, z):
         glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))  
 
 
+def draw_label_viewport(text, vp_w, vp_h):
+    """
+    Dibuja una etiqueta 2D en la esquina superior izquierda del viewport actual.
+
+    Args:
+        text: texto a mostrar
+        vp_w: ancho del viewport
+        vp_h: alto del viewport
+    """
+
+    glMatrixMode(GL_PROJECTION)
+    glPushMatrix()
+    glLoadIdentity()
+    gluOrtho2D(0, vp_w, 0, vp_h)
+
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+    glLoadIdentity()
+
+    glColor3f(1.0, 1.0, 1.0)
+    draw_text(text, 10, vp_h - 20)
+
+    glPopMatrix()
+    glMatrixMode(GL_PROJECTION)
+    glPopMatrix()
+    glMatrixMode(GL_MODELVIEW)
+
+
