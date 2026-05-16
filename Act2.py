@@ -18,10 +18,24 @@ visibilidad = {
     "acerado": False,
     "carretera": False,
     "pasodecebra": False,
-    "semaforo": False,
+    "semaforo": True,
     "farola": False,
-    "nubes": True
+    "nubes": False
 }
+
+# Vista de Adrián
+# visibilidad = {
+#     "ejes": True,
+#     "coche": False,
+#     "carril_bici": True,
+#     "acerado": True,
+#     "carretera": True,
+#     "pasodecebra": True,
+#     "semaforo": True,
+#     "farola": False,
+#     "nubes": False
+# }
+
 
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
 xMin = yMin = zMin = - axes_length
