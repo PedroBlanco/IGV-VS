@@ -15,11 +15,12 @@ visibilidad = {
     "ejes": True,
     "coche": False,
     "carril_bici": False,
-    "acerado": True,
-    "carretera": True,
-    "pasodecebra": True,
-    "semaforo": True,
-    "farola": False
+    "acerado": False,
+    "carretera": False,
+    "pasodecebra": False,
+    "semaforo": False,
+    "farola": False,
+    "nubes": True
 }
 
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
@@ -189,6 +190,10 @@ def gestiona_tecla(key, x, y):
             print("Tecla 7 pulsada -> Cambiar visibilidad de farola")
             cambiar_visibilidad("farola")
 
+        case b'8':
+            print("Tecla 7 pulsada -> Cambiar visibilidad de nubes")
+            cambiar_visibilidad("nubes")
+
         case _:
             print(f"Tecla sin acción asignada: {key}")
 
@@ -347,6 +352,11 @@ def draw_mundo():
     glPopMatrix()
 
     glPushMatrix()
+    glTranslatef(50, 0, -8)
+    igv_3dobjects.linea_stop()
+    glPopMatrix()
+
+    glPushMatrix()
     glTranslatef(10, 2, 42)
     igv_3dobjects.semaforo() # Semaforo junto al paso de cebra - coordenadas corregidas
     glPopMatrix()
@@ -376,14 +386,18 @@ def draw_mundo_b():
 
     if visibilidad["coche"]:
         glPushMatrix()
-        glTranslatef(60, 0, 65)
-        igv_3dobjects.coche()
+        glTranslatef(60, 0, 0)
+        igv_3dobjects.coche2()
         glPopMatrix()
     
     if visibilidad["pasodecebra"]:
         glPushMatrix()
         glTranslatef(20, 0, -8)
         igv_3dobjects.pasodecebra()
+        glPopMatrix()
+        glPushMatrix()
+        glTranslatef(50, 0, -8)
+        igv_3dobjects.linea_stop()
         glPopMatrix()
 
     if visibilidad["semaforo"]:
@@ -403,6 +417,25 @@ def draw_mundo_b():
         glTranslatef(-60, 0, 59)
         glRotatef(270, 0, 1, 0)
         igv_3dobjects.farolav4()
+        glPopMatrix()
+
+    if visibilidad["nubes"]:
+        glPushMatrix()
+        glTranslatef(25, 30, 30)
+        glScalef(2, 0.8, 1)
+        igv_3dobjects.nube(light_grey_range)
+        glPopMatrix()
+        
+        glPushMatrix()
+        glTranslatef(-5, 50, -5)
+        glScalef(2, 1.5, 4)
+        igv_3dobjects.nube(dark_grey_range)
+        glPopMatrix()
+        
+        glPushMatrix()
+        glTranslatef(-20, 40, 50)
+        glScalef(0.5, 1, 1)
+        igv_3dobjects.nube(grey_range)
         glPopMatrix()
 
 
