@@ -10,6 +10,18 @@ from math import pi
 import igv_utils    # Módulo con funciones definidas para la asignatura
 import igv_3dobjects #Libreria de objetos recopilados y creados para la asignatura
 
+# Necesario para controlar qué objetos mostramos
+visibilidad = {
+    "ejes": True,
+    "coche": False,
+    "carril_bici": False,
+    "acerado": True,
+    "carretera": True,
+    "pasodecebra": True,
+    "semaforo": True,
+    "farola": False
+}
+
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
 xMin = yMin = zMin = - axes_length
 xMax = yMax = zMax = axes_length
@@ -124,18 +136,6 @@ color_golem_hierro = [color_golem_hierro_claro, color_golem_hierro_medio, color_
 
 color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 
-# Necesario para controlar qué objetos mostramos
-visibilidad = {
-    "ejes": True,
-    "coche": False,
-    "carril_bici": False,
-    "acerado": False,
-    "carretera": False,
-    "pasodecebra": False,
-    "semaforo": False,
-    "farola": False
-}
-
 def cambiar_visibilidad(nombre_objeto):
     global visibilidad
 
@@ -203,11 +203,13 @@ def salir():
 
 
 def init_gl():
-    glutInit()                                     # Inicializa la librerÃ­a GLUT
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Ãšnico frame buffer y modo de color RGB y buffer de prof
+    glutInit()                                     # Inicializa la libre­ría GLUT
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Único frame buffer y modo de color RGB y buffer de prof
     glutInitWindowSize(1000, 600)                   #(height, width)
     glutInitWindowPosition(100, 100)               #(x pos, y pos)
-    glutCreateWindow(b'actividad grupal')          # CreaciÃ³n de la ventana (si no se pone b da error)
+
+    glutCreateWindow(b'Actividad Grupal')          # Creación de la ventana (si no se pone b da error)
+    
     glClearColor(1.0, 1.0, 1.0, 1.0);              # Color del buffer
     
     glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS)
@@ -285,7 +287,7 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
     glLoadIdentity()
     gluLookAt(x0, y0, z0, xref, yref, zref, vx, vy, vz)
  
-    draw_mundo()
+    draw_mundo_b()
     igv_utils.draw_label_viewport(label, vp_w, vp_h)
 
 
@@ -345,67 +347,63 @@ def draw_mundo():
     glPopMatrix()
 
     glPushMatrix()
-    glTranslatef(20, 0, -8)
-    igv_3dobjects.semaforo() #Semaforo junto al paso de cebra
+    glTranslatef(10, 2, 42)
+    igv_3dobjects.semaforo() # Semaforo junto al paso de cebra - coordenadas corregidas
     glPopMatrix()
 
 
-# def draw_mundo():
-#     if visibilidad["ejes"]:
-#         igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
+def draw_mundo_b():
+    if visibilidad["ejes"]:
+        igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
 
-#     if visibilidad["carril_bici"]:
-#         glPushMatrix()
-#         glTranslatef(-100, 0, 70)
-#         igv_3dobjects.carril_bici()
-#         glPopMatrix()
+    if visibilidad["carril_bici"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 70)
+        igv_3dobjects.carril_bici()
+        glPopMatrix()
 
-#     if visibilidad["acerado"]:
-#         glPushMatrix()
-#         glTranslatef(-100, 0, 30)
-#         igv_3dobjects.acerado()
-#         glPopMatrix()
+    if visibilidad["acerado"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, 30)
+        igv_3dobjects.acerado()
+        glPopMatrix()
 
-#     if visibilidad["carretera"]:
-#         glPushMatrix()
-#         glTranslatef(-100, 0, -10)
-#         igv_3dobjects.carretera()
-#         glPopMatrix()
+    if visibilidad["carretera"]:
+        glPushMatrix()
+        glTranslatef(-100, 0, -10)
+        igv_3dobjects.carretera()
+        glPopMatrix()
 
-#     if visibilidad["coche"]:
-#         glPushMatrix()
-#         glTranslatef(60, 0, 65)
-#         igv_3dobjects.coche()
-#         glPopMatrix()
+    if visibilidad["coche"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        igv_3dobjects.coche()
+        glPopMatrix()
     
-#     if visibilidad["pasodecebra"]:
-#         glPushMatrix()
-#         glTranslatef(20, 0, -8)
-#         igv_3dobjects.pasodecebra()
-#         glPopMatrix()
+    if visibilidad["pasodecebra"]:
+        glPushMatrix()
+        glTranslatef(20, 0, -8)
+        igv_3dobjects.pasodecebra()
+        glPopMatrix()
 
-#     if visibilidad["semaforo"]:
-#         glPushMatrix()
-#         # glTranslatef(15, 0, -5)
-#         #glTranslatef(18, 4, 42)
-#         # Cambio rápido
-#         glTranslatef(20, 0, -8) #Al lado del paso de cebra
-#         # rotar en el eje y 90 grados 
-#         glRotatef(90, 0, 1, 0)
-#         igv_3dobjects.semaforo()
-#         glPopMatrix()
+    if visibilidad["semaforo"]:
+        glPushMatrix()
+        glTranslatef(10, 2, 42)     # Al lado del paso de cebra
+        glRotatef(90, 0, 1, 0)      # Rotar en el eje y 90 grados
+        igv_3dobjects.semaforo()
+        glPopMatrix()
 
-#     if visibilidad["farola"]:
-#         glPushMatrix()
-#         glTranslatef(60, 0, 65)
-#         glRotatef(90, 0, 1, 0)
-#         igv_3dobjects.farolav4()
-#         glPopMatrix()
-#         glPushMatrix()
-#         glTranslatef(-60, 0, 59)
-#         glRotatef(270, 0, 1, 0)
-#         igv_3dobjects.farolav4()
-#         glPopMatrix()
+    if visibilidad["farola"]:
+        glPushMatrix()
+        glTranslatef(60, 0, 65)
+        glRotatef(90, 0, 1, 0)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
+        glPushMatrix()
+        glTranslatef(-60, 0, 59)
+        glRotatef(270, 0, 1, 0)
+        igv_3dobjects.farolav4()
+        glPopMatrix()
 
 
 
