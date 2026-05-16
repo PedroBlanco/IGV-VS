@@ -1334,13 +1334,13 @@ def semaforo():
             glPopMatrix()
 
         def luz_arriba():
-            dibujar_luz(0, dark_red_range)
+            dibujar_luz(2, dark_red_range)
 
         def luz_medio():
             dibujar_luz(1, dark_yellow_range)
 
         def luz_abajo():
-            dibujar_luz(2, dark_green_range)
+            dibujar_luz(0, dark_green_range)
 
         luz_arriba()
         luz_medio()
