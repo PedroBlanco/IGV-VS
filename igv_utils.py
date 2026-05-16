@@ -314,9 +314,10 @@ def draw_text_3d(text, x, y, z):
 def draw_label_viewport(text, vp_w, vp_h):
     """
     Dibuja una etiqueta 2D en la esquina superior izquierda del viewport actual.
+    Permite mostrar varias líneas si el texto contiene saltos de línea.
 
     Args:
-        text: texto a mostrar
+        text: texto a mostrar. Puede contener \n
         vp_w: ancho del viewport
         vp_h: alto del viewport
     """
@@ -334,11 +335,23 @@ def draw_label_viewport(text, vp_w, vp_h):
     glLoadIdentity()
 
     glColor3f(0.0, 0.0, 0.0)
-    draw_text(text, 10, vp_h - 20)
+
+    margen_x = 10
+    margen_y = 20
+    separacion_lineas = 16
+
+    x = margen_x
+    y = vp_h - margen_y
+
+    for linea in text.splitlines():
+        draw_text(linea, x, y)
+        y -= separacion_lineas
 
     glPopMatrix()
+
     glMatrixMode(GL_PROJECTION)
     glPopMatrix()
+
     glMatrixMode(GL_MODELVIEW)
 
     if depth_activo:

@@ -147,7 +147,7 @@ def cambiar_visibilidad(nombre_objeto):
     visibilidad[nombre_objeto] = not visibilidad[nombre_objeto]
 
     estado = "visible" if visibilidad[nombre_objeto] else "oculto"
-    print(f"{nombre_objeto}: {estado}")
+    print(f"Cambio visibilidad de {nombre_objeto} a {estado}")
 
     glutPostRedisplay()
 
@@ -329,10 +329,25 @@ def display():
                   projection="ortho", lookAt="x-",
                   label="Ortogonal lateral der.")
  
+    _label =(
+        "Perspectiva simétrica\n"
+        "\n"
+        "Teclas:\n"
+        "0 - Ejes\n"
+        "1 - Coche\n"
+        "2 - Carril bici\n"
+        "3 - Acerado\n"
+        "4 - Carretera\n"
+        "5 - Paso de cebra\n"
+        "6 - Semáforo\n"
+        "7 - Farola\n"
+        "8 - Nube\n"
+        "ESC/Q/q - Salir"
+    )
     # Viewport 4 (abajo-derecha): proyección en perspectiva, cámara elevada
     draw_viewport(vp_w, 0, vp_w, vp_h,
                   projection="perspective", lookAt="perspectiva",
-                  label="Perspectiva simétrica")
+                  label=_label)
  
     glFlush()
 
