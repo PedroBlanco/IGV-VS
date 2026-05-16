@@ -344,7 +344,6 @@ def draw_mundo():
     igv_3dobjects.pasodecebra()
     glPopMatrix()
 
-
     glPushMatrix()
     glTranslatef(20, 0, -8)
     igv_3dobjects.semaforo() #Semaforo junto al paso de cebra
@@ -390,7 +389,7 @@ def draw_mundo():
 #         # glTranslatef(15, 0, -5)
 #         #glTranslatef(18, 4, 42)
 #         # Cambio rápido
-#         glTranslatef(10, 2, 42)
+#         glTranslatef(20, 0, -8) #Al lado del paso de cebra
 #         # rotar en el eje y 90 grados 
 #         glRotatef(90, 0, 1, 0)
 #         igv_3dobjects.semaforo()
