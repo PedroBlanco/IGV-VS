@@ -321,6 +321,9 @@ def draw_label_viewport(text, vp_w, vp_h):
         vp_h: alto del viewport
     """
 
+    depth_activo = glIsEnabled(GL_DEPTH_TEST)
+    glDisable(GL_DEPTH_TEST)
+
     glMatrixMode(GL_PROJECTION)
     glPushMatrix()
     glLoadIdentity()
@@ -330,12 +333,15 @@ def draw_label_viewport(text, vp_w, vp_h):
     glPushMatrix()
     glLoadIdentity()
 
-    glColor3f(1.0, 1.0, 1.0)
+    glColor3f(0.0, 0.0, 0.0)
     draw_text(text, 10, vp_h - 20)
 
     glPopMatrix()
     glMatrixMode(GL_PROJECTION)
     glPopMatrix()
     glMatrixMode(GL_MODELVIEW)
+
+    if depth_activo:
+        glEnable(GL_DEPTH_TEST)
 
 
