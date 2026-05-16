@@ -7,7 +7,7 @@ from math import sin
 from math import tan
 from math import pi
 
-import igv_utils    # MÃ³dulo con funciones definidas para la asignatura
+import igv_utils    # Módulo con funciones definidas para la asignatura
 import igv_3dobjects
 
 axes_length = 100 # Máxima longitud de los ejes coordenados (se dibujarán desde -axes_length hasta +axes_length)
@@ -124,13 +124,88 @@ color_golem_hierro = [color_golem_hierro_claro, color_golem_hierro_medio, color_
 
 color_golem_ojos = [30/255, 30/255, 30/255]  # Negro para ojos
 
+# Necesario para controlar qué objetos mostramos
+visibilidad = {
+    "ejes": True,
+    "coche": False,
+    "carril_bici": False,
+    "acerado": False,
+    "carretera": False,
+    "pasodecebra": False,
+    "semaforo": False,
+    "farola": False
+}
 
+def cambiar_visibilidad(nombre_objeto):
+    global visibilidad
+
+    if nombre_objeto not in visibilidad:
+        print(f"Objeto no reconocido: {nombre_objeto}")
+        return
+
+    visibilidad[nombre_objeto] = not visibilidad[nombre_objeto]
+
+    estado = "visible" if visibilidad[nombre_objeto] else "oculto"
+    print(f"{nombre_objeto}: {estado}")
+
+    glutPostRedisplay()
+
+
+def gestiona_tecla(key, x, y):
+    match key:
+        case b'\x1b'| b'q' | b'Q':  # ESC, q ó Q
+            print(f"Tecla {key} pulsada -> Salir")
+            salir()
+
+        case b'0':
+            print("Tecla 0 pulsada -> Cambiar visibilidad de ejes")
+            cambiar_visibilidad("ejes")
+
+        case b'1':
+            print("Tecla 1 pulsada -> Cambiar visibilidad de coche")
+            cambiar_visibilidad("coche")
+
+        case b'2':
+            print("Tecla 2 pulsada -> Cambiar visibilidad de carril_bici")
+            cambiar_visibilidad("carril_bici")
+
+        case b'3':
+            print("Tecla 3 pulsada -> Cambiar visibilidad de acerado")
+            cambiar_visibilidad("acerado")
+
+        case b'4':
+            print("Tecla 4 pulsada -> Cambiar visibilidad de carretera")
+            cambiar_visibilidad("carretera")
+
+        case b'5':
+            print("Tecla 5 pulsada -> Cambiar visibilidad de pasodecebra")
+            cambiar_visibilidad("pasodecebra")
+
+        case b'6':
+            print("Tecla 6 pulsada -> Cambiar visibilidad de semaforo")
+            cambiar_visibilidad("semaforo")
+
+        case b'7':
+            print("Tecla 7 pulsada -> Cambiar visibilidad de farola")
+            cambiar_visibilidad("farola")
+
+        case _:
+            print(f"Tecla sin acción asignada: {key}")
+
+
+def salir():
+    
+    try:
+        glutLeaveMainLoop()
+    except Exception:
+        import os
+        os._exit(0)
 
 
 def init_gl():
     glutInit()                                     # Inicializa la librerÃ­a GLUT
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)    # Ãšnico frame buffer y modo de color RGB y buffer de prof
-    glutInitWindowSize(1000, 650)                   #(height, width)
+    glutInitWindowSize(1800, 800)                   #(height, width)
     glutInitWindowPosition(100, 100)               #(x pos, y pos)
     glutCreateWindow(b'actividad grupal')          # CreaciÃ³n de la ventana (si no se pone b da error)
     glClearColor(1.0, 1.0, 1.0, 1.0);              # Color del buffer
@@ -138,7 +213,7 @@ def init_gl():
     glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS)
     
     glMatrixMode(GL_MODELVIEW)
-    glEnable(GL_DEPTH_TEST)                        # HABILITA COMPROBACIÃ“N DE PROFUNDIDAD EN EL DIBUJO 
+    glEnable(GL_DEPTH_TEST)                        # HABILITA COMPROBACIÓN DE PROFUNDIDAD EN EL DIBUJO 
 
 
 def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
@@ -211,8 +286,7 @@ def draw_viewport(vp_x, vp_y, vp_w, vp_h, projection, lookAt, label):
     gluLookAt(x0, y0, z0, xref, yref, zref, vx, vy, vz)
  
     draw_mundo()
-    igv_utils.draw_text_3d(label, xMin + 0.5, yMin + 0.5, 0)
-
+    igv_utils.draw_label_viewport(label, vp_w, vp_h)
 
 
 
@@ -243,7 +317,7 @@ def display():
     # Viewport 4 (abajo-derecha): proyección en perspectiva, cámara elevada
     draw_viewport(vp_w, 0, vp_w, vp_h,
                   projection="perspective", lookAt="perspectiva",
-                  label="Perspectiva simetrica")
+                  label="Perspectiva simétrica")
  
     glFlush()
 
@@ -251,38 +325,33 @@ def display():
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
     glPushMatrix()
-    # glTranslatef(-100, 0, 70)
-    # igv_3dobjects.carril_bici()
-    # glPopMatrix()
-
-    # glPushMatrix()
-    # glTranslatef(-100, 0, 30)
-    # igv_3dobjects.acerado()
-    # glPopMatrix()
-
-    # glPushMatrix()
-    # glTranslatef(-100, 0, -10)
-    # igv_3dobjects.carretera()
-    # glPopMatrix()
-
-    # glPushMatrix()
-    # glTranslatef(20, 0, -8)
-    # igv_3dobjects.pasodecebra()
-    # glPopMatrix()
-
-    # glPushMatrix()
-    # glTranslatef(60, 0, 65)
-    # igv_3dobjects.coche()
-
-    igv_3dobjects.semaforo()
-    # igv_3dobjects.farolav4()
+    glTranslatef(-100, 0, 70)
+    igv_3dobjects.carril_bici()
     glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, 30)
+    igv_3dobjects.acerado()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(-100, 0, -10)
+    igv_3dobjects.carretera()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(60, 0, 65)
+    igv_3dobjects.coche()
+    glPopMatrix()
+
+
 
 
 
 def main():
     init_gl()
     glutDisplayFunc(display)
+    glutKeyboardFunc(gestiona_tecla)
     glutMainLoop()   
 
 main()

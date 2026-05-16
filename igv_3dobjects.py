@@ -88,6 +88,15 @@ light_grey_range = [grey_1, grey_2, grey_3]
 dark_grey_range = [grey_4, grey_5, grey_6]
 very_dark_grey = [grey_6, grey_7, grey_8]
 
+grey_6 = [70/255, 70/255, 70/255] 
+grey_7 = [50/255, 50/255, 50/255] 
+grey_8 = [30/255, 30/255, 30/255]
+ 
+grey_range = [grey_1, grey_2, grey_3, grey_4, grey_5]
+light_grey_range = [grey_1, grey_2, grey_3]
+dark_grey_range = [grey_4, grey_5, grey_6]
+very_dark_grey = [grey_6, grey_7, grey_8]
+
 black_5 = [27/255, 38/255, 49/255] 
 
 color_piel_claro = [220/255, 190/255, 170/255]
@@ -402,6 +411,68 @@ def empty_pipe_y(x_size, y_size, z_size, colors):
         
     # Restaurar la matriz MODELVIEW
     glPopMatrix()
+
+def empty_pipe_x(x_size, y_size, z_size, colors):
+
+    # Comprobar x_size, y_size, z_size
+    if (x_size < 3) or (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_pipe_x")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+ 
+
+    for x in range(x_size):
+        empty_face_yz(y_size, z_size, colors)
+        glTranslatef(1,0,0)
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
+
+def empty_face_yz(y_size, z_size, colors):
+
+    # Comprobar x_size, z_size
+    if (y_size < 3) or (z_size < 3):
+        print("Error en los parámetros de empty_face_xz")
+        return
+
+    # Preservar la matriz MODELVIEW
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 1, 0)
+
+ 
+
+            
+    for z in range(z_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, 1)            
+
+    for y in range(y_size-1):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, -1, 0)           
+
+ 
+
+    for z in range(z_size):
+        color = choice(colors)
+        igv_utils.color_cube(color)
+        glTranslatef(0, 0, -1)   
+
+    # Restaurar la matriz MODELVIEW
+    glPopMatrix()
+
 
 def empty_pipe_x(x_size, y_size, z_size, colors):
 

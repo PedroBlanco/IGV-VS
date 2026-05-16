@@ -4,26 +4,17 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
-'''
-Función que muestra por consola el contenido de la matriz MODELVIEW o la matriz PROJECTION.
-El primer parámetro (tipo) permite seleccionar la matriz ('m': MODELVIEW, 'p': PROJECTION).
-El segundo parámetro es el texto que aparecerá antes de la matriz.
-'''
 
 def print_matrix(tipo, mensaje):
     
-    '''
+    """
     Muestra por consola el contenido de la matriz MODELVIEW o la matriz PROJECTION.
     
     Args:
         tipo: permite seleccionar la matriz ('m': MODELVIEW, 'p': PROJECTION).
         mensaje: texto que aparecerá antes de la matriz
-    
-    Returs:
-        None
-    
-    
-    '''
+
+    """
 
     print(mensaje)
     if tipo == 'm':
@@ -42,12 +33,12 @@ def print_matrix(tipo, mensaje):
 
 def cube():
     
-    '''
+    """
     Dibuja un cubo centrado en el origen y de lado 1.
 
     El nombre de las caras (frontal, posterior, etc) corresponden a 
     un punto de vista situado en el eje Z positivo, mirando hacia el eje Z negativo.
-    '''
+    """
     
     he = 0.5   # semilado del cubo (half-edge)
     
@@ -60,6 +51,8 @@ def cube():
     v7 = [-he, he, -he]
     v8 = [-he, -he, -he]
     
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
     
     # CARA POSTERIOR: NARANJA
     glColor3f(255/255, 153/255, 0/255)
@@ -114,18 +107,20 @@ def cube():
     glVertex3fv(v6)
     glVertex3fv(v7)
     glEnd()    
+
+    glPopMatrix()
     
     
 
 def color_cube(colorv):
     
-    '''
-    Dibuja un cubo centrado en el origen y de lado 1 con todas las caras del mismo
+    """
+    Dibuja un cubo centrado en el origen y de lado 1 con todas las caras del mismo color
     
     Args:
         colorv: color del cubo en forma de lista de tres componentes R, G, B
 
-    '''
+    """
     
     he = 0.5   # semilado del cubo (half-edge)
     
@@ -140,7 +135,11 @@ def color_cube(colorv):
     
     
     glColor3fv(colorv)
-
+    
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
+    
+    
     # CARA POSTERIOR
     glBegin(GL_POLYGON);
     glVertex3fv(v8) 
@@ -190,12 +189,13 @@ def color_cube(colorv):
     glVertex3fv(v7)
     glEnd()
     
+    glPopMatrix()
 
 
 
 def axes(xMin, xMax, yMin, yMax, zMin, zMax, tickmarks):
     
-    '''
+    """
     Dibuja los 3 ejes de coordenadas con los siguientes colores:
 
         Eje X: azul oscuro el semieje positivo y azul claro el semieje negativo.
@@ -213,12 +213,11 @@ def axes(xMin, xMax, yMin, yMax, zMin, zMax, tickmarks):
         zMin: valor mínimo del eje Z
         zMax: valor máximo del eje Z
         tickmarks: si True, se dibujan marcas en los ejes en las posiciones enteras (1, 2, 3, etc).
-    
-    
-    Returns:
-        None
 
-    '''    
+    """    
+    
+    glMatrixMode(GL_MODELVIEW)
+    glPushMatrix()
 
     glLineWidth(2)
     glBegin(GL_LINES)
@@ -275,14 +274,38 @@ def axes(xMin, xMax, yMin, yMax, zMin, zMax, tickmarks):
             glVertex3f(0.0, 0.0, z)
         glEnd()
 
+    glPopMatrix()
   
 
 def draw_text(text, x, y):
+    """
+    Muestra una cadena de texto en una posición concreta dentro de una escena 2D.
+        
+        
+    Args:
+        text: cadena de texto
+        x: coordenada x de la posición de inicio del texto
+        y: coordenada y de la posición de inicio del texto
+    """
+
     glRasterPos2f(x, y)
     for char in text:
         glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))
+        
+        
 
 def draw_text_3d(text, x, y, z):
+    """
+    Muestra una cadena de texto en una posición concreta dentro de una escena 3D.
+        
+        
+    Args:
+        text: cadena de texto
+        x: coordenada x de la posición de inicio del texto
+        y: coordenada y de la posición de inicio del texto
+        z: coordenada z de la posición de inicio del texto
+    """
+    
     glRasterPos3f(x, y, z)
     for char in text:
         glutBitmapCharacter(GLUT_BITMAP_8_BY_13, ord(char))  
