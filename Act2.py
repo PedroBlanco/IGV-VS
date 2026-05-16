@@ -437,13 +437,13 @@ def draw_mundo_b():
         glPushMatrix()
         glTranslatef(-5, 50, -5)
         glScalef(2, 1.5, 4)
-        igv_3dobjects.nube(grey_range)
+        igv_3dobjects.nube(light_grey_range)
         glPopMatrix()
         
         glPushMatrix()
         glTranslatef(-20, 40, 50)
         glScalef(0.5, 1, 1)
-        igv_3dobjects.nube(dark_grey_range)
+        igv_3dobjects.nube(light_grey_range)
         glPopMatrix()
 
 
