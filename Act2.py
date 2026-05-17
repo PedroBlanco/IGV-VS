@@ -12,15 +12,16 @@ import igv_3dobjects #Libreria de objetos recopilados y creados para la asignatu
 
 # Necesario para controlar qué objetos mostramos
 visibilidad = {
-    "ejes": True,
-    "coche": False,
-    "carril_bici": False,
-    "acerado": False,
-    "carretera": False,
-    "pasodecebra": False,
+    "ejes": False,
+    "coche": True,
+    "carril_bici": True,
+    "acerado": True,
+    "carretera": True,
+    "pasodecebra": True,
     "semaforo": True,
-    "farola": False,
-    "nubes": False
+    "farola": True,
+    "nubes": True,
+    "bicicleta": True
 }
 
 # Vista de Adrián
@@ -33,7 +34,8 @@ visibilidad = {
 #     "pasodecebra": True,
 #     "semaforo": True,
 #     "farola": False,
-#     "nubes": False
+#     "nubes": False,
+#     "bicicleta": True
 # }
 
 
@@ -168,6 +170,7 @@ def cambiar_visibilidad(nombre_objeto):
     imprimir_visibilidad()
 
 def imprimir_visibilidad():
+    # La tecla 0 se reserva para los ejes, a partir de ahí tenemos 9 teclas más (1, 2, 3, 4, 5, 6, 7, 8, 9), por lo que el diccionario visibilidad sólo puede tener 10 elementos
     i = 0
     for key, value in visibilidad.items():
         print(f"({i}) {key}: {value}.", end=" ")
@@ -215,6 +218,10 @@ def gestiona_tecla(key, x, y):
         case b'8':
             print("Tecla 7 pulsada -> Cambiar visibilidad de nubes")
             cambiar_visibilidad("nubes")
+
+        case b'9':
+            print("Tecla 7 pulsada -> Cambiar visibilidad de bicicleta y persona")
+            cambiar_visibilidad("bicicleta")
 
         case _:
             print(f"Tecla sin acción asignada: {key}")
@@ -356,6 +363,7 @@ def display():
         "6 - Semáforo\n"
         "7 - Farola\n"
         "8 - Nube\n"
+        "9 - Bicicleta y persona\n"
         "ESC/Q/q - Salir"
     )
     # Viewport 4 (abajo-derecha): proyección en perspectiva, cámara elevada
@@ -365,7 +373,7 @@ def display():
  
     glFlush()
 
-
+# Función de dibujo de pruebas
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
     # glPushMatrix()
@@ -407,13 +415,13 @@ def draw_mundo():
     # glPopMatrix()
     
     glPushMatrix()
-    glTranslatef(50, 0, -8)
+    glTranslatef(50, 0, 0)
     igv_3dobjects.linea_stop()
     glPopMatrix()
 
 
     glPushMatrix()
-    glTranslatef(50, 0, -8)
+    glTranslatef(30, 0, 20)
     igv_3dobjects.linea_stop()
     glPopMatrix()
 
@@ -422,7 +430,7 @@ def draw_mundo():
     igv_3dobjects.semaforo() # Semaforo junto al paso de cebra - coordenadas corregidas
     glPopMatrix()
 
-
+# Función de dibujo
 def draw_mundo_b():
     if visibilidad["ejes"]:
         igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)
@@ -447,7 +455,8 @@ def draw_mundo_b():
 
     if visibilidad["coche"]:
         glPushMatrix()
-        glTranslatef(60, 0, 0)
+        glTranslatef(55, 0, -8)
+        glScalef(2.5, 2.5, 2.2)
         igv_3dobjects.coche2()
         glPopMatrix()
     
@@ -456,8 +465,9 @@ def draw_mundo_b():
         glTranslatef(20, 0, -8)
         igv_3dobjects.pasodecebra()
         glPopMatrix()
+
         glPushMatrix()
-        glTranslatef(50, 0, -8)
+        glTranslatef(45, 0, 28)
         igv_3dobjects.linea_stop()
         glPopMatrix()
 
@@ -465,41 +475,68 @@ def draw_mundo_b():
         glPushMatrix()
         glTranslatef(10, 2, 42)     # Al lado del paso de cebra
         glRotatef(90, 0, 1, 0)      # Rotar en el eje y 90 grados
+        glScalef(0.7, 1, 0.7)
         igv_3dobjects.semaforo()
         glPopMatrix()
 
     if visibilidad["farola"]:
+        # Una farola iluminando el acerado
         glPushMatrix()
         glTranslatef(60, 0, 65)
         glRotatef(90, 0, 1, 0)
+        glScalef(1, 1.5, 1)
         igv_3dobjects.farolav4()
         glPopMatrix()
+
+        # Una farola iluminando el carril bici
         glPushMatrix()
         glTranslatef(-60, 0, 59)
         glRotatef(270, 0, 1, 0)
+        glScalef(1, 1.5, 1)
         igv_3dobjects.farolav4()
+        glPopMatrix()
+
+        # Un árbol entre las dos farolas
+        glPushMatrix()
+        glTranslatef(-5, 0, 65)
+        glScalef(0.4, 1, 0.4)
+        igv_3dobjects.tree(grey_range, green_range)
         glPopMatrix()
 
     if visibilidad["nubes"]:
         glPushMatrix()
-        glTranslatef(25, 30, 30)
+        glTranslatef(25, 55, 30)
         glScalef(2, 0.8, 1)
         igv_3dobjects.nube(light_grey_range)
         glPopMatrix()
         
         glPushMatrix()
-        glTranslatef(-5, 50, -5)
+        glTranslatef(-5, 65, -5)
         glScalef(2, 1.5, 4)
         igv_3dobjects.nube(light_grey_range)
         glPopMatrix()
         
         glPushMatrix()
-        glTranslatef(-20, 40, 50)
+        glTranslatef(-20, 60, 50)
         glScalef(0.5, 1, 1)
         igv_3dobjects.nube(light_grey_range)
         glPopMatrix()
 
+    if visibilidad["bicicleta"]:
+        glPushMatrix()
+        glTranslatef(-35, 0, 75)
+        glRotatef(90, 0, 1, 0)
+        glScalef(2.2, 2.2, 1.5)
+        igv_3dobjects.bicicleta()
+        glPopMatrix()
 
+        # Falta añadir la persona
+        glPushMatrix()
+        glTranslatef(20, 0, 50)
+        glRotatef(90, 0, 1, 0)
+        glScalef(1.5, 1.5, 1.5)
+        igv_3dobjects.persona()
+        glPopMatrix()
 
 def main():
     init_gl()
