@@ -1382,5 +1382,57 @@ def farolav4():
     empty_pipe_y(3, 12, 3, dark_yellow_range) 
     glPopMatrix()
 
+def bicicleta():
+    #colores
+    color_ruedas = very_dark_grey
+    color_cuadro = dark_blue_range
+    color_asiento = dark_brown_range
+ 
+    
+    #  rueda trasera (Posicionada atrás en Z=0)
+    # Ancho X=1, Alto Y=4, Profundidad Z=4
+    glPushMatrix()
+    solid_ortho(1, 4, 4, color_ruedas)
+    glPopMatrix()
+ 
+   
+    #  rueda delantera (Posicionada adelante en Z=10)
+    # Ancho X=1, Alto Y=4, Profundidad Z=4
+    glPushMatrix()
+    glTranslatef(0.0, 0.0, 10.0) # Desplazada hacia adelante en el eje Z
+    solid_ortho(1, 4, 4, color_ruedas)
+    glPopMatrix()
+ 
+   
+    # Conectar ambas ruedas
+    # Barra inferior central (une los ejes de las ruedas a la altura Y=2)
+    glPushMatrix()
+    glTranslatef(0.0, 2.0, 3.0) # Centrada en X, elevada en Y, empieza tras la rueda trasera
+    solid_ortho(1, 1, 8, color_cuadro) # Barra horizontal de largo Z=8
+    glPopMatrix()
+ 
+    # Barra del sillín  sube en Y=2 desde el centro Z=6
+    glPushMatrix()
+    glTranslatef(0.0, 3.0, 5.0)
+    solid_ortho(1, 3, 1, color_cuadro) #3 unidades de alto
+    glPopMatrix()
+ 
+    # barra del manillar (Horquilla delantera en Z=11, sube hasta Y=7)
+    glPushMatrix()
+    glTranslatef(0.0, 3.0, 11.0)
+    solid_ortho(1, 4, 1, color_cuadro) # Sube 4 unidades de alto
+    glPopMatrix()
+ 
 
+    # Sillín (En la punta de la barra del sillín Y=6, Z=5)
+    glPushMatrix()
+    glTranslatef(0.0, 6.0, 4.5)
+    solid_ortho(1, 1, 2, color_asiento) # Un asiento pequeño alargado
+    glPopMatrix()
+ 
+    # Manillar 
+    glPushMatrix()
+    glTranslatef(-2.0, 7.0, 11.0) # Se mueve a la izquierda para centrar la barra transversal
+    solid_ortho(5, 1, 1, color_asiento) # Barra transversal de 5 de ancho en X
+    glPopMatrix()
 
