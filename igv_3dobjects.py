@@ -1249,14 +1249,16 @@ def pasodecebra():
 
 
 def linea_stop():
-    glPushMatrix()    
-    largo_x= 8
-    ancho_z= 15
+    glPushMatrix()        
+    largo_x= 37
+    ancho_z= 4
+ 
+    glRotatef(90, 0, 1, 0)
     solid_ortho(
             int(largo_x),   # tamaño en X
             2,              # grosor en Y
             int(ancho_z),   # tamaño en Z
-            [grey_1])
+            [grey_1]) 
     glPopMatrix()
 
 
@@ -1585,16 +1587,4 @@ def persona():
     #  Y=16 total altura desde zaptos hasta vin de cuerpo. Se mueve 0.5 en X para centrar la cabeza de 6 sobre el de 7
     glTranslatef(0.5, 16.0, -1.5) 
     solid_ortho(6, 6, 6, color_piel)
-    glPopMatrix()
-
-
-def linea_stop():
-    glPushMatrix()    
-    largo_x= 8
-    ancho_z= 15
-    solid_ortho(
-            int(largo_x),   # tamaño en X
-            2,              # grosor en Y
-            int(ancho_z),   # tamaño en Z
-            [grey_1])
     glPopMatrix()
