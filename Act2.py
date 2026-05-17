@@ -349,11 +349,17 @@ def draw_mundo():
     # igv_3dobjects.semaforo() #Semaforo junto al paso de cebra
     # glPopMatrix()
 
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # glScalef(4.0, 4.0, 4.0) 
+    # glRotatef(90.0, 0.0, 1.0, 0.0)
+    # igv_3dobjects.bicicleta()
+    # glPopMatrix()
+
     glPushMatrix()
-    glTranslatef(20, 0, -8)
-    glScalef(4.0, 4.0, 4.0) 
     glRotatef(90.0, 0.0, 1.0, 0.0)
-    igv_3dobjects.bicicleta()
+    glScalef(3.0, 3.0, 3.0) 
+    igv_3dobjects.persona()
     glPopMatrix()
 
 
