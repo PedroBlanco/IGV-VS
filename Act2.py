@@ -368,25 +368,49 @@ def display():
 
 def draw_mundo():
     igv_utils.axes(xMin, xMax, yMin, yMax, zMin, zMax, True)  # Dibujo de los ejes de coordenadas
+    # glPushMatrix()
+    # glTranslatef(-100, 0, 70)
+    # igv_3dobjects.carril_bici()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(-100, 0, 30)
+    # igv_3dobjects.acerado()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(-100, 0, -10)
+    # igv_3dobjects.carretera()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # igv_3dobjects.pasodecebra()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # igv_3dobjects.semaforo() #Semaforo junto al paso de cebra
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glTranslatef(20, 0, -8)
+    # glScalef(4.0, 4.0, 4.0) 
+    # glRotatef(90.0, 0.0, 1.0, 0.0)
+    # igv_3dobjects.bicicleta()
+    # glPopMatrix()
+
+    # glPushMatrix()
+    # glRotatef(90.0, 0.0, 1.0, 0.0)
+    # glScalef(3.0, 3.0, 3.0) 
+    # igv_3dobjects.persona()
+    # glPopMatrix()
+    
     glPushMatrix()
-    glTranslatef(-100, 0, 70)
-    igv_3dobjects.carril_bici()
+    glTranslatef(50, 0, -8)
+    igv_3dobjects.linea_stop()
     glPopMatrix()
 
-    glPushMatrix()
-    glTranslatef(-100, 0, 30)
-    igv_3dobjects.acerado()
-    glPopMatrix()
-
-    glPushMatrix()
-    glTranslatef(-100, 0, -10)
-    igv_3dobjects.carretera()
-    glPopMatrix()
-
-    glPushMatrix()
-    glTranslatef(20, 0, -8)
-    igv_3dobjects.pasodecebra()
-    glPopMatrix()
 
     glPushMatrix()
     glTranslatef(50, 0, -8)
