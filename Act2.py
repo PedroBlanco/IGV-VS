@@ -356,11 +356,18 @@ def draw_mundo():
     # igv_3dobjects.bicicleta()
     # glPopMatrix()
 
+    # glPushMatrix()
+    # glRotatef(90.0, 0.0, 1.0, 0.0)
+    # glScalef(3.0, 3.0, 3.0) 
+    # igv_3dobjects.persona()
+    # glPopMatrix()
+    
     glPushMatrix()
-    glRotatef(90.0, 0.0, 1.0, 0.0)
-    glScalef(3.0, 3.0, 3.0) 
-    igv_3dobjects.persona()
+    glTranslatef(50, 0, -8)
+    igv_3dobjects.linea_stop()
     glPopMatrix()
+
+
 
 
 # def draw_mundo():

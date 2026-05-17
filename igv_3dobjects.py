@@ -1510,3 +1510,15 @@ def persona():
     glTranslatef(0.5, 16.0, -1.5) 
     solid_ortho(6, 6, 6, color_piel)
     glPopMatrix()
+
+
+def linea_stop():
+    glPushMatrix()    
+    largo_x= 8
+    ancho_z= 15
+    solid_ortho(
+            int(largo_x),   # tamaño en X
+            2,              # grosor en Y
+            int(ancho_z),   # tamaño en Z
+            [grey_1])
+    glPopMatrix()
